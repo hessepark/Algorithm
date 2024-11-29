@@ -1,35 +1,40 @@
-import java.util.ArrayList;
+import java.util.ArrayDeque;
 import java.util.Scanner;
 
 class Main {
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
-		int N = sc.nextInt();
-		int K = sc.nextInt();
-
-		ArrayList<Integer> list = new ArrayList<>();
-
-		for (int i = 1; i < N + 1; i++) {
-			list.add(i);
+		
+		int n = sc.nextInt();
+		int k = sc.nextInt();
+		
+		ArrayDeque<Integer> q = new ArrayDeque<>();
+		
+		for(int i=1;i<=n;i++) {
+			q.add(i);
 		}
-
-		int ans[] = new int[N];
-		int currentIndex = 0;
-
-		for (int i = 0; i < N; i++) {
-			currentIndex = (currentIndex + K - 1) % list.size();
-			ans[i] = list.remove(currentIndex);
+		
+		int answer[]=new int[n];
+		
+		for(int i=0;i<n;i++) {
+			for(int j=1;j<k;j++) {
+				q.add(q.poll());
+			}
+			answer[i]=q.poll();
 		}
-
-		System.out.print("<");
-
-		for (int i = 0; i < N; i++) {
-			System.out.print(ans[i]);
-			if (i != N - 1)
-				System.out.print(", ");
+		
+		StringBuilder sb = new StringBuilder();
+		sb.append("<");
+		for(int i=0;i<answer.length;i++) {
+			if(i>0) {
+				sb.append(", ");
+			}
+			sb.append(answer[i]);
 		}
-
-		System.out.println(">");
-
+		sb.append(">");
+		
+		System.out.println(sb);
+		
+		
 	}
 }
