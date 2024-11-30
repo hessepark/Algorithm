@@ -1,63 +1,65 @@
-import java.util.Arrays;
-import java.util.HashSet;
+import java.util.*;
+import java.io.*;
 
 class Solution {
+    
+    public static HashSet<Integer>set;
+    public static boolean isVisited[];
+    public static int answer;
+    
+    public int solution(String numbers) {
+        answer =0;
+        set = new HashSet<>();
+        isVisited=new boolean[numbers.length()];
+        
+        for(int i=1;i<=numbers.length();i++) {
+            perm("",numbers,i);
+        }
+        
+        return answer;
+        
+    }
+    
+    public static void perm(String current,String numbers,int depth){
 
-	public static boolean isVisited[];
-	public static int length;
-	public static int ans;
-	public static char[] answer;
-	public static String target = "";
-	public static HashSet<Integer> set;
+        if(current.length()==depth){
+            if(isPrime(Integer.parseInt(current))){
+                set.add(Integer.parseInt(current));
+                System.out.println(Integer.parseInt(current));
+                answer++;
+            }
+            return;
+        }
+        
+        for(int i=0;i<numbers.length();i++){
+            if(!isVisited[i]){
+            isVisited[i]=true;
+            perm(current+numbers.charAt(i),numbers,depth);
+            isVisited[i]=false;
+            }
+        }
+        
+    
+    }
+    
+    public static boolean isPrime(int num){
 
-	public static int solution(String numbers) {
-		ans = 0;
-		length = numbers.length();
-		target = numbers;
-		set = new HashSet<>();
-
-		for (int i = 1; i <= numbers.length(); i++) {
-			answer = new char[i];
-			isVisited = new boolean[length];
-			dfs(0, i);
-		}
-
-		return ans;
-	}
-
-	public static void dfs(int depth, int l) {
-		if (depth == l) {
-			
-			if(set.contains(Integer.parseInt(new String(answer)))) {
-				return;
-			}
-			
-			boolean isPossible = true;
-			int num = Integer.parseInt(new String(answer));
-			for (int i = 2; i <= Math.sqrt(num); i++) {
-				if (num % i == 0) {
-					isPossible = false;
-					break;
-				}
-			}
-			if (isPossible && Integer.parseInt(new String(answer)) != 1 && Integer.parseInt(new String(answer)) != 0) {
-				System.out.println(Arrays.toString(answer));
-				set.add(Integer.parseInt(new String(answer)));
-				ans++;
-			}
-			return;
-		}
-
-		for (int i = 0; i < length; i++) {
-			if (!isVisited[i]) {
-				isVisited[i] = true;
-				answer[depth] = target.charAt(i);
-				
-				dfs(depth + 1, l);
-                isVisited[i] = false;
-			}
-			
-		}
-
-	}
+        if(set.contains(num)){
+            return false;
+        }
+        
+        if(num<2){
+            return false;
+        }
+        
+        for(int i=2;i<=Math.sqrt(num);i++){
+            if(num%i==0){
+                return false;
+            }
+        }
+        
+        return true;
+        
+    }
+    
 }
