@@ -13,11 +13,12 @@ class Solution {
     public int solution(int k, int[][] dungeons) {
         max = Integer.MIN_VALUE;
         
+        isVisited=new boolean[dungeons.length];
        
         
         for(int i=0;i<dungeons.length;i++){ //모든 던전을 출발점으로 둬봄
-             isVisited=new boolean[dungeons.length];
             perm(k,dungeons,i,1); //현재 피로도(k에서 출발),현재 도착한 던전,현재 길이
+            System.out.println(Arrays.toString(isVisited));
         }
         
         return max;
@@ -40,6 +41,8 @@ class Solution {
                 isVisited[i]=false;
             }
         }
+        
+        isVisited[pos] = false; //처음 방문한 노드도 돌려줘야함 처음에 얘를 간과했다.
         
         
     
