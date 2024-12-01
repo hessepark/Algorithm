@@ -1,5 +1,4 @@
-import java.util.*;
-import java.io.*;
+import java.util.HashSet; //24.12.01 디버깅 구문 추가
 
 //11과 011은 같다 ->HashSet필요하구나
 //모든 순열(순서가 부여된 임의의 집합) 만들어봐야하구나 permutation ->어떤 매개변수?
@@ -11,7 +10,7 @@ class Solution {
     public static boolean isVisited[];
     public static int ans; //전역적으로 값 증가
     
-    public int solution(String numbers) {
+    public static int solution(String numbers) {
         ans=0;
         
         set = new HashSet<>();
@@ -29,7 +28,7 @@ class Solution {
     public static void perm(String current,String numbers,int depth){
 
         if(current.length()==depth){
-
+        	//System.out.println(Integer.parseInt(current));
             if(isPrime(Integer.parseInt(current))) {//set 체크도 Prime내부에서 해주자
                 set.add(Integer.parseInt(current));
                 ans++;    
@@ -41,6 +40,7 @@ class Solution {
         for(int i=0;i<numbers.length();i++){
             if(!isVisited[i]){
                 isVisited[i]=true;
+                //System.out.println(i+1);
                 perm(current+numbers.charAt(i),numbers,depth);
                 isVisited[i]=false;
             }
@@ -68,5 +68,10 @@ class Solution {
         return true;
         
     }
+    
+    // public static void main(String[] args) {
+    // 	String numbers="123";
+    // 	solution(numbers);
+    // }
     
 }
