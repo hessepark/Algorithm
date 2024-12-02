@@ -1,4 +1,4 @@
-import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 class Main {
@@ -8,33 +8,28 @@ class Main {
 		int n = sc.nextInt();
 		int k = sc.nextInt();
 		
-		ArrayDeque<Integer> q = new ArrayDeque<>();
+		ArrayList<Integer>list = new ArrayList<>();
 		
 		for(int i=1;i<=n;i++) {
-			q.add(i);
+			list.add(i);
 		}
 		
-		int answer[]=new int[n];
-		
-		for(int i=0;i<n;i++) {
-			for(int j=1;j<k;j++) {
-				q.add(q.poll());
-			}
-			answer[i]=q.poll();
-		}
+		int currentIndex=0;
 		
 		StringBuilder sb = new StringBuilder();
 		sb.append("<");
-		for(int i=0;i<answer.length;i++) {
-			if(i>0) {
+		
+		while(list.size()!=0) {
+			currentIndex=(currentIndex+k-1)%list.size();
+			sb.append(list.remove(currentIndex));
+			
+			if(list.size()!=0) {
 				sb.append(", ");
 			}
-			sb.append(answer[i]);
 		}
 		sb.append(">");
 		
 		System.out.println(sb);
-		
 		
 	}
 }
