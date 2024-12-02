@@ -1,38 +1,34 @@
-import java.util.HashSet; //24.12.01 디버깅 구문 추가
-
-//11과 011은 같다 ->HashSet필요하구나
-//모든 순열(순서가 부여된 임의의 집합) 만들어봐야하구나 permutation ->어떤 매개변수?
-//값 중복 사용불가->방문여부 체크하는 배열 필요하다.
+import java.util.*;
+import java.io.*;
 
 class Solution {
+
+//perm (isVisited[]) 이해
+//추가 조건문 처리 이해
+//소수 계산 이해
+//(순열을 만들면서) 모든 깊이를 다 탐색해서 완전탐색 
     
-    public static HashSet<Integer>set;
+    public static HashSet<Integer> set;// 11,011 같다
+    public static int ans;
     public static boolean isVisited[];
-    public static int ans; //전역적으로 값 증가
     
-    public static int solution(String numbers) {
-        ans=0;
-        
+    public int solution(String numbers) {
+        ans = 0;
         set = new HashSet<>();
-        isVisited=new boolean[numbers.length()]; //어차피 false로 계속 처리해줄 거니 한 번만 초기화
+        isVisited = new boolean[numbers.length()+1];
         
-        for(int i=1;i<=numbers.length();i++){ //모든 길이 다 체크
-        
-            perm("",numbers,i); //현재 어떤 조합인지, String ,목표 깊이
-            
+        for(int i=1;i<=numbers.length();i++) { //모든 깊이 다 탐색
+            perm("",i,numbers);//현재 값,깊이,단어
         }
         
         return ans;
     }
     
-    public static void perm(String current,String numbers,int depth){
-
+    public static void perm(String current, int depth,String numbers) {
         if(current.length()==depth){
-        	//System.out.println(Integer.parseInt(current));
-            if(isPrime(Integer.parseInt(current))) {//set 체크도 Prime내부에서 해주자
+            if(isPrime(Integer.parseInt(current))){
+                ans++;
                 set.add(Integer.parseInt(current));
-                ans++;    
-                
             }
             return;
         }
@@ -40,22 +36,21 @@ class Solution {
         for(int i=0;i<numbers.length();i++){
             if(!isVisited[i]){
                 isVisited[i]=true;
-                //System.out.println(i+1);
-                perm(current+numbers.charAt(i),numbers,depth);
+                perm(current+numbers.charAt(i),depth,numbers);//ex) numbers:"011" depth:2이면 01로 갔다가 current는 따로
+                                                              //변수에 저장이 되어있는 게 아니어서 다시 0으로 돌아갔다가 뒤에 1과 01이                                                               //된다.
                 isVisited[i]=false;
             }
         }
-    
         
     }
     
     public static boolean isPrime(int num){
-        
-        if(set.contains(num)){ //이미 포함하고 있으면 중복증가 방지
+    
+        if(set.contains(num)){
             return false;
         }
         
-        if(num<2){ //값이 0이나 1
+        if(num<2){
             return false;
         }
         
@@ -66,12 +61,7 @@ class Solution {
         }
         
         return true;
-        
-    }
     
-    // public static void main(String[] args) {
-    // 	String numbers="123";
-    // 	solution(numbers);
-    // }
+    }
     
 }
