@@ -2,50 +2,45 @@ import java.util.*;
 import java.io.*;
 
 class Solution {
-
-//perm (isVisited[]) 이해
-//추가 조건문 처리 이해
-//소수 계산 이해
-//(순열을 만들면서) 모든 깊이를 다 탐색해서 완전탐색 
+    //각 인덱스에서 붙일 수 있는 거 다 붙여본다.
     
-    public static HashSet<Integer> set;// 11,011 같다
-    public static int ans;
     public static boolean isVisited[];
+    public static HashSet<Integer>set;
+    public static int answer;
     
     public int solution(String numbers) {
-        ans = 0;
-        set = new HashSet<>();
-        isVisited = new boolean[numbers.length()+1];
+        answer = 0;
         
-        for(int i=1;i<=numbers.length();i++) { //모든 깊이 다 탐색
-            perm("",i,numbers);//현재 값,깊이,단어
-        }
+        isVisited=new boolean[numbers.length()+1];
+        set=new HashSet<>();
         
-        return ans;
+        perm("",0,numbers);//현재 값, 깊이
+        
+        return answer;
     }
     
-    public static void perm(String current, int depth,String numbers) {
-        if(current.length()==depth){
-            if(isPrime(Integer.parseInt(current))){
-                ans++;
-                set.add(Integer.parseInt(current));
-            }
-            return;
+    public static void perm(String cur,int depth,String numbers){
+        
+         if(!cur.equals("")&&isPrime(Integer.parseInt(cur))){
+            set.add(Integer.parseInt(cur));
+            answer++;
         }
+        
+        // if(depth==numbers.length()){
+        //     return;
+        // }
         
         for(int i=0;i<numbers.length();i++){
-            if(!isVisited[i]){
+            if(!isVisited[i]) {
                 isVisited[i]=true;
-                perm(current+numbers.charAt(i),depth,numbers);//ex) numbers:"011" depth:2이면 01로 갔다가 current는 따로
-                                                              //변수에 저장이 되어있는 게 아니어서 다시 0으로 돌아갔다가 뒤에 1과 01이                                                               //된다.
+                perm(cur+numbers.charAt(i),depth+1,numbers);
                 isVisited[i]=false;
             }
-        }
-        
+        }   
     }
     
     public static boolean isPrime(int num){
-    
+
         if(set.contains(num)){
             return false;
         }
@@ -61,7 +56,6 @@ class Solution {
         }
         
         return true;
-    
+            
     }
-    
 }
