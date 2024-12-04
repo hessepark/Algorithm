@@ -36,15 +36,16 @@ class Solution {
         
         for(int i=0;i<5;i++){
 
-            if(found){
-                return;
-            }
+           
             
             //System.out.println(cur+arr[i]);
            // if(cur.length()<5){ //깊이를 cur.length()로 대신한 거임
            
                 cnt++;
                 make(cur+arr[i],depth+1,word);
+             if(found){
+                return;
+            }
             
            // };
         }
