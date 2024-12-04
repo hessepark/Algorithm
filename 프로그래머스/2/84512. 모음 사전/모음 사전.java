@@ -1,52 +1,37 @@
-import java.util.*;
-import java.io.*;
-
 class Solution {
-   
-    public static boolean found;
-    public static int cnt;
-    public static int ans;
-    public static char arr[]={'A','E','I','O','U'};
+    static int answer;
+    static String checkWord;
+    static int cnt;
+    static boolean found;
     
     public int solution(String word) {
-        
-        ans=0;
+        String[] alphabet = {"A", "E", "I", "O", "U"};
+        answer = 0;
+        checkWord = word;
         cnt = 0;
         found = false;
         
-        make("",word); // 깊이
+        makeWord(alphabet, "");
         
-        //ans=cnt;
-        
-        return ans;
-    
+        return answer;
     }
     
-    public static void make(String cur,String word){
-        
-        if(cur.equals(word)){
-            ans=cnt;
+    public void makeWord(String[] alphabet, String word) {
+        if (word.equals(checkWord)) {
+            answer = cnt;
             found=true;
             return;
         }
         
-        
-        for(int i=0;i<5;i++){
-
-           
-            
-            //System.out.println(cur+arr[i]);
-            if(cur.length()<5){ //깊이를 cur.length()로 대신한 거임
-           
+        for (int i = 0; i < alphabet.length; i++) {
+            if (word.length() < 5) {
                 cnt++;
-                make(cur+arr[i],word);
-             if(found){
-                return;
+                //System.out.println(word+alphabet[i]);
+                makeWord(alphabet, word + alphabet[i]);
+                if(found){
+                   return;
+                }
             }
-            
-            };
         }
-        
-        
     }
 }
