@@ -14,15 +14,15 @@ class Solution {
         isVisited=new boolean[numbers.length()+1];
         set=new HashSet<>();
         
-        perm("",0,numbers);//현재 값, 깊이
+        perm(0,0,numbers);//현재 값, 깊이
         
         return answer;
     }
     
-    public static void perm(String cur,int depth,String numbers){
+    public static void perm(int cur,int depth,String numbers){
         
-         if(!cur.equals("")&&isPrime(Integer.parseInt(cur))){
-            set.add(Integer.parseInt(cur));
+         if(isPrime(cur)){
+            set.add(cur);
             answer++;
         }
         
@@ -33,7 +33,7 @@ class Solution {
         for(int i=0;i<numbers.length();i++){
             if(!isVisited[i]) {
                 isVisited[i]=true;
-                perm(cur+numbers.charAt(i),depth+1,numbers);
+                perm(cur*10+numbers.charAt(i)-'0',depth+1,numbers);
                 isVisited[i]=false;
             }
         }   
