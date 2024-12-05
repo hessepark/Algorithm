@@ -36,6 +36,8 @@ class Main {
 				sb.append(ans[i]+" ");
 			}
 			System.out.println(sb);
+            
+            return;
 		}
 		
 		for(int i=pos;i<n;i++) {
