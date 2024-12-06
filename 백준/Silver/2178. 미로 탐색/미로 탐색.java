@@ -31,6 +31,7 @@ class Main {
 
 		ArrayDeque<Point> q = new ArrayDeque<>();
 		q.add(new Point(1, 1));
+		isVisited[1][1]=1;
 		
 		while (!q.isEmpty()) {
 			Point now = q.pollFirst();
@@ -53,7 +54,7 @@ class Main {
 			}
 		}
 		
-		System.out.println(isVisited[n][m]+1);
+		System.out.println(isVisited[n][m]);
 
 	}
 }
