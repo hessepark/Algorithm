@@ -5,28 +5,29 @@ class Main {
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		
-		char str[]=sc.next().toCharArray();
+		String str = sc.next();
+		//char arr[] = str.toCharArray(); 이렇게 해줘도 됨
 		
-		ArrayDeque<Character>q = new ArrayDeque<>();
+		ArrayDeque<Character> q = new ArrayDeque<>();
 		
-		int result=0;
+		int ans=0;
 		
-		for(int i=0;i<str.length;i++) {
-			if(str[i]=='(') {
-				q.add(str[i]);
+		for(int i=0;i<str.length();i++) {
+			if(str.charAt(i)=='(') {
+				q.add('(');
 			}
 			else {
-				q.pollLast();
-				if(str[i-1]=='(') {
-					result+=q.size();
+				q.poll();
+				if(str.charAt(i-1)=='(') {
+					ans+=q.size();
 				}
 				else {
-					result++;
+					ans++;
 				}
 			}
 		}
 		
-		System.out.println(result);
+		System.out.println(ans);
 		
 	}
 }
