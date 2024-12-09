@@ -1,3 +1,4 @@
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -20,7 +21,7 @@ class Main {
 			list[i] = new ArrayList<>();
 		}
 
-		for (int i = 0; i < n-1; i++) {
+		for (int i = 0; i < n - 1; i++) {
 			int a = sc.nextInt();
 			int b = sc.nextInt();
 			list[a].add(b);
@@ -31,7 +32,7 @@ class Main {
 //			System.out.println(list[i]);
 //		}
 
-		dfs(1);
+		bfs(1);
 
 		for (int i = 2; i < ans.length; i++) {
 			System.out.println(ans[i]);
@@ -39,15 +40,21 @@ class Main {
 
 	}
 
-	public static void dfs(int depth) {
+	public static void bfs(int depth) {
 		isVisited[depth] = true;
+		ArrayDeque<Integer> q = new ArrayDeque<>();
+		q.add(depth);
 
-		for (int next : list[depth]) {
-			if (!isVisited[next]) {
-				//System.out.println(next);
-				ans[next] = depth;
-				dfs(next);
+		while (!q.isEmpty()) {
+			int num = q.poll();
+			for (int next : list[num]) {
+				if (!isVisited[next]) {
+					isVisited[next] = true;
+					q.add(next);
+					ans[next] = num;
+				}
 			}
+
 		}
 
 	}
