@@ -1,67 +1,57 @@
-//bfs로 번지다가 도착하면 바로 종료
-
 import java.util.*;
 import java.io.*;
+
+class Data {
+    String word;
+    int cnt;
+    
+    public Data(String word, int cnt){
+        this.word=word;
+        this.cnt=cnt;
+    }
+    
+}
 
 class Solution {
     
     public static int ans;
-    public static int visited[];
+    public static boolean isVisited[];
     
     public int solution(String begin, String target, String[] words) {
         ans = 0;
         
-        visited=new int[words.length];
+        isVisited=new boolean[words.length];
         
-        bfs(begin,target,words);
+        bfs(begin,target,words,0);
+       
         
         return ans;
+        
+        
     }
     
-    public static void bfs(String cur,String target,String[] words){
+    public static void bfs(String begin,String target,String[]words,int cnt){
         
-        ArrayDeque<Integer>q = new ArrayDeque<>();
-        //출발 가능한 지점을 q에 다 넣는다
-         for(int i=0;i<words.length;i++){
-            if(check(words[i],cur)){
-                q.add(i);
-                visited[i]=1;
-               System.out.println(i);
-                
-                  if(words[i].equals(target)){ //ans가 처음으로 나오면
-                    ans=visited[i];
-                    break;
-                }
-                
-            }
-        }
-        
-        if(ans!=0) return;
-        
-        //System.out.println(q);
+        ArrayDeque<Data>q = new ArrayDeque<>();
+        q.add(new Data(begin,0));
         
         while(!q.isEmpty()){
-            int now = q.poll();
-            
+            Data now = q.poll();
             for(int i=0;i<words.length;i++){
-                if(visited[i]==0&&check(words[now],words[i])){
-                    visited[i]=visited[now]+1;
-                    q.add(i);
-                    System.out.println(i);
-                     if(words[i].equals(target)){ //ans가 처음으로 나오면
-                    ans=visited[i];
-                    break;
+                if(!isVisited[i]&&check(now.word,words[i])){
+                    q.add(new Data(words[i],now.cnt+1));
+                    isVisited[i]=true;
+                  if(words[i].equals(target)){
+                        ans=now.cnt+1;
+                      // System.out.println(i);
+                        //System.out.println(now.word);
+                        return;
+                    }
                 }
-                }
-               
+                  
             }
-            if(ans!=0){
-                break;
-            }
-            
         }
         
-       
     }
     
     public static boolean check(String a,String b){
@@ -74,11 +64,9 @@ class Solution {
         }
         
         if(cnt!=1){
-            return false;
+            return false;    
         }
-        
         return true;
-        
     }
     
 }
