@@ -43,9 +43,9 @@ class Solution {
                     isVisited[i]=true;
                   if(words[i].equals(target)){
                         ans=now.cnt+1;
-                      // System.out.println(i);
+                        // System.out.println(i);
                         //System.out.println(now.word);
-                        return;
+                      //return 지움
                     }
                 }
                   
