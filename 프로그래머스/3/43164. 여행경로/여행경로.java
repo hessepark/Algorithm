@@ -40,8 +40,8 @@ class Solution {
                 if(dfs(tickets[i][1],tickets)){
                     return true;
                 }
-                isVisited[i]=false;
-                answer.remove(answer.size()-1);
+                isVisited[i]=false; //못가면 안 간셈 치고
+                answer.remove(answer.size()-1); //결과값에서도 지워줘야함
                 
             }
         }
