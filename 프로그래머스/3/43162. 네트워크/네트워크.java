@@ -3,35 +3,33 @@ import java.io.*;
 
 class Solution {
     
-    public static int ans;
     public static boolean isVisited[];
     
     public int solution(int n, int[][] computers) {
+        int answer = 0;
         
-        ans = 0;
-        isVisited=new boolean[n];
+        isVisited = new boolean[computers.length];
         
         for(int i=0;i<computers.length;i++){
             if(!isVisited[i]){
-                ans++;
+                answer++;
                 dfs(i,computers);
             }
         }
-        
-        return ans;
-        
-        
+    
+        return answer;
     }
     
-    public static void dfs(int num,int[][] computers){
+    public void dfs(int num,int[][] computers){
+        
         isVisited[num]=true;
         
         for(int i=0;i<computers.length;i++){
-            if(!isVisited[i]&&computers[num][i]==1){ //안 가본 곳이고, 갈 수 있어야
+            if(!isVisited[i]&&computers[num][i]==1){
                 dfs(i,computers);
             }
         }
         
-        
     }
+    
 }
