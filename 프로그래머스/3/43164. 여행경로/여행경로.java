@@ -1,56 +1,56 @@
 import java.util.*;
-import java.io.*;
 
 class Solution {
-    
-    public static boolean isVisited[];
-    public static ArrayList<String> answer;
+    public static ArrayList<String> route;
+    public static String[][] ticketList;
+    public static boolean[] isUsed;
+    public static String[] answer;
     
     public String[] solution(String[][] tickets) {
-        answer = new ArrayList<>();
+        route = new ArrayList<>();
+        ticketList = tickets;
+        isUsed = new boolean[tickets.length];
         
-        isVisited=new boolean[tickets.length];
+        Arrays.sort(ticketList, (o1, o2) -> {
+            if (o1[1].compareTo(o2[1]) != 0) { // 도착지가 다르면 도착지 기준 오름차순 정렬
+                return o1[1].compareTo(o2[1]);
+            }
+            return o1[0].compareTo(o2[0]); // 도착지가 같으면 출발지 기준 오름차순 정렬
+        });
         
-        //1차원 배열이 리턴되는지는 확인
-        Arrays.sort(tickets, (a,b)->{ //a,b에는 1차원 배열이 리턴됨
-                   if(a[0].equals(b[0])) // 첫 번째 값이 같으면 두 번째 값으로 정렬
-                    return a[1].compareTo(b[1]);
-                   else{
-                       return a[0].compareTo(b[0]); //다르면 첫 번째로 정렬
-                   }
-            });
+        route.add("ICN");
+        dfs("ICN");
         
-       // for(int i=0;i<tickets.length;i++){
-       //     System.out.println(tickets[i][0]+","+tickets[i][1]);
-        //}
-        
-        answer.add("ICN");
-        dfs("ICN",tickets);
-       
-        
-        return answer.toArray(new String[0]);
+        return answer;
     }
     
-    public static void dfs(String cur,String tickets[][]){
+    public void dfs(String cur) {
+     
         
-        if(answer.size()==tickets.length+1){
+        if (route.size() == ticketList.length + 1) {
+            answer = new String[ticketList.length + 1];
+            for (int i = 0; i < route.size(); i++) {
+                answer[i] = route.get(i);
+            }
             return;
         }
-        
-        for(int i=0;i<tickets.length;i++){
-            if(!isVisited[i]&&cur.equals(tickets[i][0])){
-                isVisited[i]=true;
-                answer.add(tickets[i][1]);
-                dfs(tickets[i][1],tickets);
-                if(answer.size()==tickets.length+1){
+            
+        for (int i = 0; i < ticketList.length; i++) {
+            if (!isUsed[i]) {
+                String start = ticketList[i][0];
+                String end = ticketList[i][1];
+            
+                if (cur.equals(start)) {
+                    isUsed[i] = true;
+                    route.add(end);
+                    dfs(end);
+                       if (answer != null) { // 처음 경로를 찾으면 다른 경로를 찾을 필요 없음
             return;
-        }
-                isVisited[i]=false; //못가면 안 간셈 치고
-                answer.remove(answer.size()-1); //결과값에서도 지워줘야함
-                
+        }           
+                    route.remove(route.size() - 1); // 맨 뒤에 값을 제거해야 하므로 값으로 제거하면 안 됨
+                    isUsed[i] = false;
+                }
             }
         }
-        
-        
     }
 }
