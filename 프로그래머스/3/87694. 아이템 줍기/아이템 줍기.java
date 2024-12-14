@@ -7,13 +7,13 @@ class Solution {
     public static int dc[]={0,1,0,-1};
     public static boolean map[][];
     public static int ans;
-    public static ArrayList<Integer>result;
+    public static int isVisited[][];
     
     public int solution(int[][] rectangle, int characterX, int characterY, int itemX, int itemY) {
         ans=0;
         
         map=new boolean[102][102];
-        result = new ArrayList<>();
+        isVisited=new int[102][102];
         
         //모두 true;
         for(int data[]:rectangle){
@@ -35,11 +35,6 @@ class Solution {
         
         bfs(characterX,characterY,itemX,itemY);
         
-        //System.out.println(result.get(0)/2);
-        //System.out.println(result.get(1)/2);
-        
-        ans=Math.min(result.get(0)/2,result.get(1)/2-result.get(0)/2);
-        
         return ans;
         
         
@@ -54,34 +49,33 @@ class Solution {
         
         ArrayDeque<Point>q = new ArrayDeque<>();
         q.add(new Point(startX,startY));
+        isVisited[startY][startX]=1;
         
         int cnt=0;
         
-        while(true){
-            
-            if(q.isEmpty()){
-                result.add(cnt);
-                break;
-            }
-            
-            Point now = q.pollLast();
+        while(!q.isEmpty()){
+            Point now = q.poll();
             
             if(now.x==endX&&now.y==endY){
-                result.add(cnt);
+                ans= isVisited[now.y][now.x]/2;
+                return;
             }
-            
-            map[now.y][now.x]=false;
             
             for(int i=0;i<4;i++){
                 int dx=now.x+dr[i];
                 int dy=now.y+dc[i];
                 
-               if (map[dy][dx]) {   
+                if(dx==0||dy==0||dx==102||dy==102){
+                    continue;
+                }
+                
+               if (map[dy][dx]&&isVisited[dy][dx]==0) {
+                   //map[dy][dx]=false;
+                   isVisited[dy][dx]=isVisited[now.y][now.x]+1;
                     q.add(new Point(dx, dy));
                 }
             }
-            cnt++;
-            
+
         }
         
         

@@ -1,10 +1,10 @@
 # [level 3] 아이템 줍기 - 87694 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/87694) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/87694#qna) 
 
 ### 성능 요약
 
-메모리: 76.3 MB, 시간: 1.31 ms
+메모리: 73.6 MB, 시간: 1.48 ms
 
 ### 구분
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2024년 12월 14일 21:11:31
+2024년 12월 14일 21:22:54
 
 ### 문제 설명
 
