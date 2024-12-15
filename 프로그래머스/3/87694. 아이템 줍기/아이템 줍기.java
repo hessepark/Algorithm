@@ -10,15 +10,15 @@ class Solution {
     
     public static int dx[]={0,1,0,-1};
     public static int dy[]={-1,0,1,0};
-    public static int visited[][];
     public static boolean maze[][];
-    public static int ans;
+    public static ArrayList<Integer>result;
+    public static int cnt;
     
     public int solution(int[][] rectangle, int characterX, int characterY, int itemX, int itemY) {
+        cnt=0;
         
-        ans=0;
-        
-        visited=new int[102][102];
+        result=new ArrayList<>();
+
         maze=new boolean[102][102];
         
         for(int [] data:rectangle){
@@ -38,13 +38,13 @@ class Solution {
             }
         }
         
-        bfs(characterX,characterY,itemX,itemY);
+        dfs(characterX,characterY,itemX,itemY);
         
-        return ans;
+        return Math.min(result.get(0)/2,result.get(1)/2-result.get(0)/2);
         
     }
     
-    public static void bfs(int characterX, int characterY, int itemX, int itemY){
+    public static void dfs(int characterX, int characterY, int itemX, int itemY){
         
         int startX=characterX*2;
         int startY=characterY*2;
@@ -53,17 +53,20 @@ class Solution {
         
         ArrayDeque<Point>q=new ArrayDeque<>();
         q.add(new Point(startX,startY));
-        visited[startY][startX]=1; // 그림 보고 판단
         
-        while(!q.isEmpty()){
+        while(true){
             
-            Point now = q.poll();
+            if(q.isEmpty()){ //q가 비어있을 때
+                result.add(cnt);
+                break;
+            }
             
-                                
-            if(now.x==endX&&now.y==endY){
-                 ans=visited[now.y][now.x]/2;
-                 return;
-               }
+            Point now = q.pollLast();
+            
+            if(now.x==endX&&now.y==endY){ //뽑았는 게 같으면
+                result.add(cnt);
+            }
+            
             
             for(int i=0;i<4;i++){
                 int nx=now.x+dx[i];
@@ -73,15 +76,14 @@ class Solution {
                     continue;
                 }
                 
-                if(maze[ny][nx]&&visited[ny][nx]==0){
-                    visited[ny][nx]=visited[now.y][now.x]+1;
+                if(maze[ny][nx]){
+                    maze[ny][nx]=false; //if문 밑에 넣어줘도 될듯
                     q.add(new Point(nx,ny));
-                    
-
                 }
                 
-                
             }
+            
+            cnt++;
             
             
         }
