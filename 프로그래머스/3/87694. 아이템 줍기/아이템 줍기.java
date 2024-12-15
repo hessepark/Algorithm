@@ -59,6 +59,12 @@ class Solution {
             
             Point now = q.poll();
             
+                                
+            if(now.x==endX&&now.y==endY){
+                 ans=visited[now.y][now.x]/2;
+                 return;
+               }
+            
             for(int i=0;i<4;i++){
                 int nx=now.x+dx[i];
                 int ny=now.y+dy[i];
@@ -71,11 +77,7 @@ class Solution {
                     visited[ny][nx]=visited[now.y][now.x]+1;
                     q.add(new Point(nx,ny));
                     
-                    
-                    if(nx==endX&&ny==endY){
-                        ans=visited[ny][nx]/2;
-                        return;
-                    }
+
                 }
                 
                 
