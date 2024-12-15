@@ -40,7 +40,7 @@ class Solution {
         
         bfs(characterX,characterY,itemX,itemY);
         
-        return visited[itemY*2][itemX*2]/2;
+        return ans;
         
     }
     
@@ -70,6 +70,12 @@ class Solution {
                 if(maze[ny][nx]&&visited[ny][nx]==0){
                     visited[ny][nx]=visited[now.y][now.x]+1;
                     q.add(new Point(nx,ny));
+                    
+                    
+                    if(nx==endX&&ny==endY){
+                        ans=visited[ny][nx]/2;
+                        return;
+                    }
                 }
                 
                 
