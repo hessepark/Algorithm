@@ -38,6 +38,8 @@ class Solution {
         
         bfs(rectangle, characterX, characterY,itemX,itemY);
         
+        //System.out.println(visited[itemY*2][itemX*2]);
+        
         return visited[itemY*2][itemX*2]/2;
     }
     
@@ -50,7 +52,7 @@ class Solution {
         
         ArrayDeque<Point>q=new ArrayDeque<>();
         q.add(new Point(startX,startY));
-        visited[startY][startX]=1;
+        visited[startY][startX]=0;
         
         
         while(!q.isEmpty()){
