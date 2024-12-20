@@ -1,114 +1,112 @@
 import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Scanner;
 
 class Main {
 
-	public static int n;
-	public static int m;
+	public static int n, m;
 	public static int earth[][];
-	public static List<Ice> iceList;
-	public static boolean isVisited[][];
+	public static boolean check[][];
+	public static ArrayList<Ice> list;
 	public static int dr[] = { -1, 0, 1, 0 };
 	public static int dc[] = { 0, 1, 0, -1 };
 
 	public static void main(String[] args) {
 
 		Scanner sc = new Scanner(System.in);
+
 		n = sc.nextInt();
 		m = sc.nextInt();
-
+		check = new boolean[n][m];
 		earth = new int[n][m];
-		isVisited = new boolean[n][m];
-		iceList = new ArrayList<>();
+		list = new ArrayList<>();
 
-		// 넣기
 		for (int i = 0; i < n; i++) {
 			for (int j = 0; j < m; j++) {
 				earth[i][j] = sc.nextInt();
 				if (earth[i][j] > 0) {
-					iceList.add(new Ice(i, j, earth[i][j]));
+					list.add(new Ice(i, j, earth[i][j]));
 				}
-				isVisited[i][j] = true;
+				check[i][j] = true;
 			}
 		}
 
-		
-		for (int year = 1; !iceList.isEmpty(); year++) {
+		for (int year = 1; !list.isEmpty(); year++) {// 이거
 
-			// 녹이기
-			for (int i = 0; i < iceList.size(); i++) {
-				Ice ice = iceList.get(i);
-				for (int j = 0; j < 4; j++) {
-					int nr = ice.row + dr[j];
-					int nc = ice.col + dc[j];
-					if (earth[nr][nc] == 0)
-						ice.height--;
+			// 얼음 녹이기
+			for (Ice ice : list) {
+				for (int k = 0; k < 4; k++) {
+					int nr = dr[k] + ice.r;
+					int nc = dc[k] + ice.c;
+
+					if (earth[nr][nc] == 0) {
+						ice.h--;
+					}
+
 				}
 			}
 
-			//바다 업데이트&탐색
-			for (int i = 0; i < iceList.size(); i++) {
-				Ice ice = iceList.get(i);
-
-				if (ice.height <= 0) {
-					earth[ice.row][ice.col] = 0;
-					iceList.set(i, iceList.get(iceList.size() - 1));
-					iceList.remove(iceList.size() - 1);
-					i--;
+			// 녹인 얼음 대입하기
+			for (int i = 0; i < list.size(); i++) {
+				Ice ice = list.get(i);
+				if (ice.h <= 0) {
+					earth[ice.r][ice.c] = 0;
+					list.set(i, list.get(list.size() - 1));
+					list.remove(list.size() - 1);
+					i--;// 이거
+				} else {
+					check[ice.r][ice.c] = false;
 				}
-
-				else {
-					isVisited[ice.row][ice.col] = false;
-				}
-
 			}
 
-			//얼음이 있는데 갈라진 부분이 생기면
-			if (iceList.size() > 0 && iceList.size() != dfs(iceList.get(0).row, iceList.get(0).col)) {
+			if (list.size() > 0 && bfs(list.get(0).r, list.get(0).c) != list.size()) {
 				System.out.println(year);
 				System.exit(0);
 			}
-
 		}
-
 		System.out.println(0);
 
 	}
 
-	private static int dfs(int row, int col) {
+	public static int bfs(int r, int c) {
+		int cnt = 0;
+		check[r][c] = true;
+		Queue<int[]> q = new LinkedList<>();
+		q.add(new int[] { r, c });
 
-		isVisited[row][col] = true;
-		int count = 1;
+		while (!q.isEmpty()) {
+			int[] current = q.poll();
+			int cr = current[0];
+			int cc = current[1];
+			cnt++;
 
-		for (int i = 0; i < 4; i++) {
+			for (int i = 0; i < 4; i++) {
+				int nr = cr + dr[i];
+				int nc = cc + dc[i];
 
-			int nr = row + dr[i];
-			int nc = col + dc[i];
+				if (!check[nr][nc]) {
+					q.add(new int[] { nr, nc });
+					check[nr][nc] = true;
+				}
 
-			if (isVisited[nr][nc]) {
-				continue;
 			}
-			count += dfs(nr, nc);
 
 		}
 
-		return count;
-
+		return cnt;
 	}
 
 }
 
 class Ice {
+	int r;
+	int c;
+	int h;
 
-	public Ice(int row, int col, int height) {
-		this.row = row;
-		this.col = col;
-		this.height = height;
+	public Ice(int r, int c, int h) {
+		this.r = r;
+		this.c = c;
+		this.h = h;
 	}
-
-	int row;
-	int col;
-	int height;
-
 }
