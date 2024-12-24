@@ -72,7 +72,7 @@ class Main {
 				Point now = sang.poll();
 
 				if (now.r == 0 || now.c == 0 || now.r == h - 1 || now.c == w - 1) {
-					if (isVisited[now.r][now.c] < isBurned[now.r][now.c]||isBurned[now.r][now.c]==0) {
+					if (isVisited[now.r][now.c] < isBurned[now.r][now.c]||isBurned[now.r][now.c]==0) { //도착했는데 불탄 흔적이 없어도 ok || 뒤에 구문
 						System.out.println(isVisited[now.r][now.c] );
 						isPossible=true;
 						break;
@@ -88,9 +88,19 @@ class Main {
 						continue;
 					}
 
-					if (isVisited[nr][nc] == 0) {
+					if (isVisited[nr][nc] == 0) { //안 가본곳 가는 코드
 						isVisited[nr][nc] = isVisited[now.r][now.c] + 1;
 						sang.add(new Point(nr, nc));
+						
+						// ※종료 구문을 끝에 넣으면 출입구 쪽에 있을 때 처리가 안 됨 (마찬가지로 숨바꼭질 문제도 이러한 문제가 있었다)
+//						if(nr==0||nc==0||nr==h-1||nc==w-1) {
+//							if (isVisited[nr][nc] < isBurned[nr][nc]||isBurned[nr][nc]==0) { //도착했는데 불탄 흔적이 없어도 ok || 뒤에 구문
+//								System.out.println(isVisited[nr][nc] );
+//								isPossible=true;
+//								break;
+//							}
+//						}
+						
 					}
 
 				}
