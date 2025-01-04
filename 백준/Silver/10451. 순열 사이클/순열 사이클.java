@@ -2,33 +2,30 @@ import java.util.Scanner;
 
 class Main {
 
-	public static int n;
-	public static int list[];
-	public static boolean check[];
+	public static int[] nextNode;
+	public static boolean[] isVisited;
 
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 
 		int t = sc.nextInt();
-		int cnt = 0;
 
 		for (int tc = 1; tc <= t; tc++) {
-			n = sc.nextInt();
-			list = new int[n + 1];
-			check = new boolean[n + 1];
-			cnt = 0;
+			int n = sc.nextInt();
+			nextNode = new int[n + 1];
+			isVisited = new boolean[n + 1];
 
 			for (int i = 1; i < n + 1; i++) {
-				list[i] = sc.nextInt();
+				nextNode[i] = sc.nextInt();
 			}
 
+			int cnt = 0;
 			for (int i = 1; i < n + 1; i++) {
-				if (!check[i]) {
+				if (!isVisited[i]) {
 					cnt++;
 					dfs(i);
 				}
 			}
-
 			System.out.println(cnt);
 
 		}
@@ -36,12 +33,11 @@ class Main {
 	}
 
 	public static void dfs(int num) {
-		check[num] = true;
 
-		// System.out.println(num);
+		isVisited[num] = true;
 
-		if (!check[list[num]]) {
-			dfs(list[num]);
+		if (!isVisited[nextNode[num]]) {
+			dfs(nextNode[num]);
 		}
 
 	}
