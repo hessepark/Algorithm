@@ -1,54 +1,71 @@
-class Solution { //dfs는 비효율적인듯
+import java.io.*;
+import java.util.*;
+class Solution {
     
-    public static int ans;
     public static boolean[] isVisited;
     
     public int solution(String begin, String target, String[] words) {
-        ans = 0;
+        int answer = 0;
         
         isVisited=new boolean[words.length];
         
-        dfs(begin,target,words,0);
+        answer=bfs(words,begin,target);
         
-        
-        return ans;
+        return answer;
     }
     
-    public static void dfs(String cur,String target,String[] words,int cnt){
+    public static int bfs(String[] words,String begin,String target){
         
-        if(cur.equals(target)){
-            if(ans==0||cnt<ans){
-                ans=cnt;
+        ArrayDeque<Data>q = new ArrayDeque<>();
+        q.add(new Data(begin,0));
+        
+        while(!q.isEmpty()){
+            
+            Data now = q.poll();
+            
+            if(now.word.equals(target)){
+                //System.out.println("여기:"+now.cnt);
+                return now.cnt;
             }
-        }
-        
-        for(int i=0;i<words.length;i++){
-            if(!isVisited[i]&&check(cur,words[i])){
-                isVisited[i]=true;
-                dfs(words[i],target,words,cnt+1);
-                isVisited[i]=false;
+            
+            for(int i=0;i<words.length;i++){
+                if(check(words[i],now.word)&&!isVisited[i]){
+                    isVisited[i]=true;
+                    q.add(new Data(words[i],now.cnt+1));
+                    //System.out.println(words[i]);
+                }
             }
+            
+            
         }
-        
+        return 0;
         
     }
     
-    public static boolean check(String a, String b){
+    public static boolean check(String a,String b){
+        
         int cnt=0;
         
         for(int i=0;i<a.length();i++){
-            
             if(a.charAt(i)!=b.charAt(i)){
                 cnt++;
             }
-            
         }
         
-        if(cnt!=1){
-            return false;
-        }
+        if(cnt==1)return true;
+        else return false;
         
-        return true;
         
+    }
+}
+
+
+class Data {
+    String word;
+    int cnt;
+    
+    public Data(String word,int cnt) {
+        this.word=word;
+        this.cnt=cnt;
     }
 }
