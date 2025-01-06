@@ -1,56 +1,74 @@
 import java.util.*;
+import java.io.*; 
 
 class Solution {
-    public static ArrayList<String> route;
-    public static String[][] ticketList;
-    public static boolean[] isUsed;
-    public static String[] answer;
+    
+    public static ArrayList<String>answer;
+    public static boolean isVisited[];
     
     public String[] solution(String[][] tickets) {
-        route = new ArrayList<>();
-        ticketList = tickets;
-        isUsed = new boolean[tickets.length];
         
-        Arrays.sort(ticketList, (o1, o2) -> {
-            if (o1[1].compareTo(o2[1]) != 0) { // 도착지가 다르면 도착지 기준 오름차순 정렬
-                return o1[1].compareTo(o2[1]);
-            }
-            return o1[0].compareTo(o2[0]); // 도착지가 같으면 출발지 기준 오름차순 정렬
+        answer = new ArrayList<>();
+        isVisited = new boolean[tickets.length];
+        
+        Arrays.sort(tickets,(a,b)-> {
+          if(a[0].compareTo(b[0])==0){ //출발지가 같으면
+              return a[1].compareTo(b[1]); //도착지 기준 오름차순
+          } 
+          else{
+              return a[0].compareTo(b[0]); //출발지 다르면 출발지 오름차순
+          }
         });
         
-        route.add("ICN");
-        dfs("ICN");
+//         for(int i=0;i<tickets.length;i++){
+//             for(int j=0;j<tickets[0].length;j++){
+//                 System.out.print(tickets[i][j]+" ");
+//             }
+//             System.out.println();
+//         }
         
-        return answer;
+//         System.out.println("도착지 기준");
+        
+//         Arrays.sort(tickets,(a,b)-> {
+//           if(a[1].compareTo(b[1])==0){ //도착지가 같으면
+//               return a[0].compareTo(a[0]); //출발지 기준 오름차순
+//           } 
+//           else{
+//               return a[1].compareTo(b[1]); //도착지 다르면 도착지 오름차순
+//           }
+//         });
+        
+//         for(int i=0;i<tickets.length;i++){
+//             for(int j=0;j<tickets[0].length;j++){
+//                 System.out.print(tickets[i][j]+" ");
+//             }
+//             System.out.println();
+//         }
+        answer.add("ICN");
+        dfs("ICN",tickets);
+        
+        
+        return answer.toArray(new String[0]);
     }
     
-    public void dfs(String cur) {
-     
+    public static void dfs(String cur,String [][] tickets){
         
-        if (route.size() == ticketList.length + 1) {
-            answer = new String[ticketList.length + 1];
-            for (int i = 0; i < route.size(); i++) {
-                answer[i] = route.get(i);
-            }
+        // if(answer.size()==tickets.length+1){
+        //     return;
+        // }
+        
+        for(int i=0;i<tickets.length;i++){
+            if(!isVisited[i]&&tickets[i][0].equals(cur)){
+                isVisited[i]=true;
+                answer.add(tickets[i][1]);
+                dfs(tickets[i][1],tickets);
+                   if(answer.size()==tickets.length+1){
             return;
         }
-            
-        for (int i = 0; i < ticketList.length; i++) {
-            if (!isUsed[i]) {
-                String start = ticketList[i][0];
-                String end = ticketList[i][1];
-            
-                if (cur.equals(start)) {
-                    isUsed[i] = true;
-                    route.add(end);
-                    dfs(end);
-                       if (answer != null) { // 처음 경로를 찾으면 다른 경로를 찾을 필요 없음
-            return;
-        }           
-                    route.remove(route.size() - 1); // 맨 뒤에 값을 제거해야 하므로 값으로 제거하면 안 됨
-                    isUsed[i] = false;
-                }
+                isVisited[i]=false;
+                answer.remove(answer.size()-1);
             }
         }
+        
     }
 }
