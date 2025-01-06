@@ -6,30 +6,29 @@ class Solution {
     public static boolean isVisited[];
     
     public int solution(int n, int[][] computers) {
-        int answer = 0;
-        
-        isVisited = new boolean[computers.length];
+        int ans = 0;
+        isVisited= new boolean[computers.length];
         
         for(int i=0;i<computers.length;i++){
             if(!isVisited[i]){
-                answer++;
+                ans++;
                 dfs(i,computers);
             }
         }
-    
-        return answer;
+        
+        return ans;
     }
     
-    public void dfs(int num,int[][] computers){
+    public static void dfs(int num,int[][] computers){
         
-        isVisited[num]=true;
+        isVisited[num] = true;
         
         for(int i=0;i<computers.length;i++){
-            if(!isVisited[i]&&computers[num][i]==1){
+            if(computers[num][i]==1&&!isVisited[i]){
                 dfs(i,computers);
             }
         }
         
+        
     }
-    
 }
