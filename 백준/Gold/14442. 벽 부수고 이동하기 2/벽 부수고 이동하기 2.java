@@ -1,11 +1,12 @@
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.ArrayDeque;
 import java.util.Scanner;
 
 class Main {
 
 	public static int dr[] = { -1, 0, 1, 0 };
 	public static int dc[] = { 0, 1, 0, -1 };
+	public static int isVisited[][][];
+	public static int maze[][];
 
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
@@ -13,24 +14,23 @@ class Main {
 		int n = sc.nextInt();
 		int m = sc.nextInt();
 		int k = sc.nextInt();
-
-		int isVisited[][][] = new int[n + 1][m + 1][k+1];
-		int maze[][] = new int[n + 1][m + 1];
+		isVisited = new int[n + 1][m + 1][k+1];
+		maze = new int[n + 1][m + 1];
 
 		for (int i = 1; i < n + 1; i++) {
 			String str = sc.next();
 			for (int j = 1; j < m + 1; j++) {
-				maze[i][j] = str.charAt(j - 1) - '0';
+				maze[i][j] = str.charAt(j-1) - '0';
 			}
 		}
 
-		Queue<Point> q = new LinkedList<>();
+		ArrayDeque<Point> q = new ArrayDeque<>();
 		q.add(new Point(1, 1, 0));
 		isVisited[1][1][0] = 1;
 
 		while (!q.isEmpty()) {
-			Point now = q.poll();
 
+			Point now = q.poll();
 			if (now.r == n && now.c == m) {
 				System.out.println(isVisited[now.r][now.c][now.isBroken]);
 				return;
@@ -38,33 +38,28 @@ class Main {
 
 			for (int i = 0; i < 4; i++) {
 
-				int nr = now.r + dr[i];
-				int nc = now.c + dc[i];
+				int nr = dr[i] + now.r;
+				int nc = dc[i] + now.c;
 
-				if (nr <= 0 || nc <= 0 || nr > n || nc > m)
+				if (nr == 0 || nc == 0 || nr == n + 1 || nc == m + 1) {
 					continue;
+				}
 
-				if (isVisited[nr][nc][now.isBroken] == 0) {
-					if (maze[nr][nc] == 0) {
-						isVisited[nr][nc][now.isBroken] = isVisited[now.r][now.c][now.isBroken] + 1;
-						q.add(new Point(nr, nc, now.isBroken));
-					}
-
-					else if (maze[nr][nc] == 1 && now.isBroken < k&& isVisited[nr][nc][now.isBroken+1] == 0) {
-						int next = now.isBroken + 1;
-						isVisited[nr][nc][next] = isVisited[now.r][now.c][now.isBroken] + 1;
-						q.add(new Point(nr, nc, next));
-					}
-
+				if (isVisited[nr][nc][now.isBroken] == 0 && maze[nr][nc] == 0) {
+					isVisited[nr][nc][now.isBroken] = isVisited[now.r][now.c][now.isBroken] + 1;
+					q.add(new Point(nr, nc, now.isBroken));
+				} else if (now.isBroken < k&&isVisited[nr][nc][now.isBroken+1] == 0) {
+					isVisited[nr][nc][now.isBroken+1] = isVisited[now.r][now.c][now.isBroken] + 1;
+					q.add(new Point(nr, nc, now.isBroken+1));
 				}
 
 			}
 
 		}
+		
 		System.out.println(-1);
 
 	}
-
 }
 
 class Point {
@@ -72,9 +67,9 @@ class Point {
 	int c;
 	int isBroken;
 
-	public Point(int r, int c, int b) {
+	public Point(int r, int c, int isBroken) {
 		this.r = r;
 		this.c = c;
-		this.isBroken = b;
+		this.isBroken = isBroken;
 	}
 }
