@@ -2,60 +2,55 @@ import java.util.*;
 import java.io.*;
 
 class Solution {
-    //각 인덱스에서 붙일 수 있는 거 다 붙여본다.
     
-    public static boolean isVisited[];
     public static HashSet<Integer>set;
-    public static int answer;
+    public static int ans;
+    public static boolean isVisited[];
     
     public int solution(String numbers) {
-        answer = 0;
+        ans = 0;
         
-        isVisited=new boolean[numbers.length()+1];
-        set=new HashSet<>();
+        set = new HashSet<>();
+        isVisited = new boolean[numbers.length()];
         
-        perm(0,0,numbers);//현재 값, 깊이
+        perm(0,0,numbers); //현재 값, 깊이
         
-        return answer;
+        return ans;
     }
     
     public static void perm(int cur,int depth,String numbers){
         
-         if(isPrime(cur)){
+        if(isPrime(cur)&&cur>=2){
             set.add(cur);
-            answer++;
+            ans++;
         }
         
-        // if(depth==numbers.length()){
-        //     return;
-        // }
+        if(depth==numbers.length()){ //이게 없으면 012 다 차고도 또 012 한 번 더 봐야함
+            return;
+        }
         
         for(int i=0;i<numbers.length();i++){
-            if(!isVisited[i]) {
+            if(!isVisited[i]){
                 isVisited[i]=true;
                 perm(cur*10+numbers.charAt(i)-'0',depth+1,numbers);
                 isVisited[i]=false;
             }
-        }   
+        }
+        
     }
     
     public static boolean isPrime(int num){
-
+        
         if(set.contains(num)){
             return false;
         }
         
-        if(num<2){
-            return false;
-        }
-        
-        for(int i=2;i<=Math.sqrt(num);i++){
+        for(int i=2;i<=(int)Math.sqrt(num);i++){
             if(num%i==0){
                 return false;
             }
         }
-        
         return true;
-            
     }
+
 }
