@@ -7,12 +7,12 @@ class Solution {
         
         int sum = brown + yellow;
         
-        for(int i=3;i<sum;i++){
+        for(int i=3;i<=Math.sqrt(sum);i++){
             if(sum%i==0){
                 //System.out.println(i);
                if((i-2)*((sum/i)-2)==yellow){
-                   answer[0]=i;
-                   answer[1]=sum/i;
+                   answer[0]=sum/i;
+                   answer[1]=i;
                }
             }
         }
