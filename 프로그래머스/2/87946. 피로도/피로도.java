@@ -20,6 +20,10 @@ class Solution {
     
         max=Math.max(depth,max);
         
+        if(depth==dungeons.length){
+            return;
+        }
+        
         for(int i=0;i<dungeons.length;i++){
             if(!isVisited[i]&&cur>=dungeons[i][0]){
                 isVisited[i]=true;
