@@ -1,69 +1,80 @@
-import java.util.*;
 import java.io.*;
+import java.util.*;
 
 class Solution {
     
     public static boolean isVisited[];
     public static ArrayList<Integer>list[];
-    public static int min;
+    public static int min; //절댓값 차이가 최소인 거
     
     public int solution(int n, int[][] wires) {
         
-       
-        list = new ArrayList[n+1];
         min = Integer.MAX_VALUE;
         
-        for(int i=1;i<n+1;i++){
-            list[i]=new ArrayList<>();
-        }
+        list = new ArrayList[n+1];
         
-        for(int i=0;i<wires.length;i++){
-            int a= wires[i][0];
-            int b= wires[i][1];
-            
-            list[a].add(b);
-            list[b].add(a);
+        for(int i=1; i< n+1;i++){
+            list[i] = new ArrayList<>();
         }
         
         for(int i=0;i<wires.length;i++){
             int a = wires[i][0];
             int b = wires[i][1];
             
-            list[a].remove(Integer.valueOf(b));
-            list[b].remove(Integer.valueOf(a));
-            
-            isVisited=new boolean[n+1];
-            
-            int cnt=dfs(1);
-            
-            System.out.println(cnt);
-            
-            min=Math.min(min,Math.abs(cnt-(n-cnt)));
-            
             list[a].add(b);
             list[b].add(a);
         }
         
-        
-        return min;
-    }
-    
-    public static int dfs(int num){
-        int cnt=1;
-        
-        isVisited[num]=true;
-        
-        for(int next:list[num]){
-            if(!isVisited[next]){
-                //System.out.println(next);
-                isVisited[next]=true;
-                cnt+=dfs(next);
-            }
+        for(int i=0; i<wires.length; i++){
+            
+            int a = wires[i][0];
+            int b = wires[i][1];
+            
+            list[a].remove(Integer.valueOf(b));
+            list[b].remove(Integer.valueOf(a));
+            //하나 끊고
+            
+            isVisited=new boolean[n+1];
+            
+            //bfs or dfs
+            
+            bfs(1,n);
+            
+            
+            //붙이기
+            list[a].add(b);
+            list[b].add(a);
+            
+            
+            
         }
         
-        return cnt;
-        
+        return min;
         
     }
     
+    public static void bfs(int num,int n){
+        
+        ArrayDeque<Integer>q = new ArrayDeque<>();
+        q.add(num);
+        isVisited[num]=true;
+        int cnt=0;
+        
+        while(!q.isEmpty()){
+            
+            int now = q.poll();
+            cnt++;
+            
+            for(int child:list[now]){
+                if(!isVisited[child]){
+                    q.add(child);
+                    isVisited[child]=true;
+                }
+            }   
+        }
+        //System.out.println(cnt);
+        
+        min=Math.min(min,Math.abs(cnt-(n-cnt)));
+        
+    }
 }
