@@ -38,15 +38,15 @@ class Solution {
             
             //bfs or dfs
             
-            int cnt = bfs(1,n);
+            int cnt = dfs(1,n);
             
+            //System.out.println(cnt);
+            min=Math.min(min,Math.abs((n-cnt)-cnt));
             
             //붙이기
             list[a].add(b);
             list[b].add(a);   
             
-            
-            min=Math.min(min,Math.abs((n-cnt)-cnt));
         }
         
          
@@ -55,28 +55,18 @@ class Solution {
         
     }
     
-    public int bfs(int num,int n){
+    public int dfs(int num,int n){
         
-        ArrayDeque<Integer>q = new ArrayDeque<>();
-        q.add(num);
+        int cnt=1;
+        
         isVisited[num]=true;
-        int cnt=0;
         
-        while(!q.isEmpty()){
-            
-            int now = q.poll();
-            cnt++;
-            
-            for(int child:list[now]){
-                if(!isVisited[child]){
-                    q.add(child);
-                    isVisited[child]=true;
-                }
-            }   
-        }
-        //System.out.println(cnt);
+         for(int child:list[num]){
+             if(!isVisited[child]){
+                 cnt+=dfs(child,n);
+             }
+         }        
+        
         return cnt;
-       
-        
     }
 }
