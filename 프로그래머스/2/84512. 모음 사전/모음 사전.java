@@ -1,37 +1,44 @@
+import java.io.*;
+import java.util.*;
+
 class Solution {
-    static int answer;
-    static String checkWord;
-    static int cnt;
-    static boolean found;
+    
+    public static char alpha[] = {'A','E','I','O','U'};
+    public static int ans;
+    public static boolean isFind;
     
     public int solution(String word) {
-        String[] alphabet = {"A", "E", "I", "O", "U"};
-        answer = 0;
-        checkWord = word;
-        cnt = 0;
-        found = false;
+        ans = 0;
+        isFind=false;
         
-        makeWord(alphabet, "");
+        dfs("",word);
         
-        return answer;
+        return ans;
     }
     
-    public void makeWord(String[] alphabet, String word) {
-        if (word.equals(checkWord)) {
-            answer = cnt;
-            found=true;
+    public static void dfs(String now,String word) {
+        
+        if(now.equals(word)){
+            isFind=true;
+           // System.out.println("정답: "+now+" 도달: "+ans);
             return;
         }
         
-        for (int i = 0; i < alphabet.length; i++) {
-            if (word.length() < 5) {
-                cnt++;
-                //System.out.println(word+alphabet[i]);
-                makeWord(alphabet, word + alphabet[i]);
-                if(found){
-                   return;
-                }
-            }
+        if(now.length()==5){
+           // System.out.println("도달 "+now);
+            return;
         }
+        
+        for(int i=0;i<alpha.length;i++){
+            ans++;
+           // System.out.println(now);
+            dfs(now+alpha[i],word);
+            if(isFind){
+                return;
+            }
+             //System.out.println("리턴 "+now +" i: "+i);
+        }
+        
+        
     }
 }
