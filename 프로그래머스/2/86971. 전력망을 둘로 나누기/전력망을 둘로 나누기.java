@@ -38,22 +38,24 @@ class Solution {
             
             //bfs or dfs
             
-            bfs(1,n);
+            int cnt = bfs(1,n);
             
             
             //붙이기
             list[a].add(b);
-            list[b].add(a);
+            list[b].add(a);   
             
             
-            
+            min=Math.min(min,Math.abs((n-cnt)-cnt));
         }
+        
+         
         
         return min;
         
     }
     
-    public static void bfs(int num,int n){
+    public int bfs(int num,int n){
         
         ArrayDeque<Integer>q = new ArrayDeque<>();
         q.add(num);
@@ -73,8 +75,8 @@ class Solution {
             }   
         }
         //System.out.println(cnt);
-        
-        min=Math.min(min,Math.abs(cnt-(n-cnt)));
+        return cnt;
+       
         
     }
 }
