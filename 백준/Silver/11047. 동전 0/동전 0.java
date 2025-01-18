@@ -16,7 +16,7 @@ class Main {
 		}
 		
 		for(int i=n-1;i>=0;i--) {
-			if(k/money[i]!=0) { //나눠지는 게 있으면
+			if(k/money[i]!=0) { //나눠지는 게 있으면 // k>=money[i]
 				cnt+=k/money[i]; //몫 더해주고
 				k%=money[i]; //계산해서 남김
 			}
