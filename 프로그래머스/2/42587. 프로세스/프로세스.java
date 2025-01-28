@@ -1,38 +1,40 @@
-import java.io.*;
 import java.util.*;
+import java.io.*;
 
 class Solution {
     public int solution(int[] priorities, int location) {
+        int answer = 0;
         
-         PriorityQueue<Integer>q = new PriorityQueue<>((o1,o2)->Integer.compare(o2,o1));
+        Integer[] list=new Integer[priorities.length];
         
         for(int i=0;i<priorities.length;i++){
-            q.add(priorities[i]);
+            list[i]=priorities[i];
         }
         
-        //System.out.println(q);
+        Arrays.sort(list,Collections.reverseOrder());
         
-        int idx=0;
-        int num=q.poll();
+        ArrayDeque<Integer>q = new ArrayDeque<>();
+        for(int i=0;i<list.length;i++){
+            q.add(list[i]);
+        }
         
-        System.out.println(num);
+        int cnt=1;
         
         while(true){
             
             for(int i=0;i<priorities.length;i++){
-                if(priorities[i]==num){
-                    idx++;
-                    
+                if(priorities[i]==q.peekFirst()){
                     if(location==i){
-                        return idx;
+                        return cnt;
                     }
-                    num=q.poll(); //같은 거 발견했을 때만 poll
+                    q.poll();
+                    cnt++;
                 }
-               
             }
-        
-    
-
+            
+            
+        }
+       
+        //return answer;
     }
-}
 }
