@@ -1,28 +1,21 @@
-import java.io.*;
 import java.util.*;
-
+import java.io.*;
 class Solution {
     public int[] solution(int[] prices) {
         int[] answer = new int[prices.length];
         
-        ArrayDeque<Integer>q = new ArrayDeque<>();
-        
         for(int i=0;i<prices.length-1;i++){
-            q.add(prices[i]);
-            int idx=1;
+            int cnt=1;
             for(int j=i+1;j<prices.length-1;j++){
-                if(q.peekLast()>prices[j]){
+                if(prices[i]<=prices[j]){
+                    cnt++;
+                }
+                else{
                     break;
                 }
-                idx++;
             }
-            answer[i]=idx;
+            answer[i]=cnt;
         }
-        
-        answer[answer.length-1]=0;
-        
-        
-        
         
         return answer;
     }
