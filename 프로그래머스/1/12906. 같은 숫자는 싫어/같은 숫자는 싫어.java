@@ -1,25 +1,28 @@
 import java.util.*;
-import java.io.*;
 
 public class Solution {
     public int[] solution(int []arr) {
         int[] answer = {};
         
-        ArrayList<Integer>list = new ArrayList<>();
-        
-        int preNum=10; //전에 어떤 값이 나왔는지를 항상 기억한다.
+        ArrayDeque<Integer>q = new ArrayDeque<>();
         
         for(int i=0;i<arr.length;i++){
-            if(preNum!=arr[i]){
-                list.add(arr[i]);
+            if(q.isEmpty()){
+                q.add(arr[i]);
             }
-             preNum=arr[i];
+            else{
+                if(q.peekLast()!=arr[i]){
+                    q.add(arr[i]);
+                }
+            }
         }
         
-        answer=new int[list.size()];
+        answer = new int[q.size()];
         
-        for(int i=0;i<answer.length;i++){
-            answer[i]=list.get(i);
+        int idx=0;
+        
+        while(!q.isEmpty()){
+            answer[idx++]=q.pollFirst();
         }
 
         return answer;
