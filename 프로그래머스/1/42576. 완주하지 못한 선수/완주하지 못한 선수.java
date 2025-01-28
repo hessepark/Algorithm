@@ -15,9 +15,9 @@ class Solution { //다 넣고 홀수 인 애 추출
             map.put(completion[i],map.get(completion[i])+1);
         }
         
-        for(int i=0;i<participant.length;i++){
-            if(map.get(participant[i])%2!=0){
-                answer=participant[i];
+        for(String person:map.keySet()){
+            if(map.get(person)%2!=0){
+                answer=person;
                 break;
             }
         }
