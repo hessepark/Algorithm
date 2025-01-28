@@ -7,21 +7,19 @@ class Solution {
 
         ArrayDeque<Character>q = new ArrayDeque<>();
         
-        for(int i=0;i<s.length();i++) {
-            if(s.charAt(i)=='('){ // (가 들어올 때와 )가 들어올 때를 구분
+        for(int i=0;i<s.length();i++){
+            if(s.charAt(i)=='('){
                 q.add(s.charAt(i));
             }
-            else {
+            else{
                 if(q.isEmpty()){
-                    return false;
+                    return false; //바로 )부터 들어오면
                 }
-                else{
-                    q.poll();
-                }
+                q.poll();
             }
         }
         
-        if(!q.isEmpty()) {
+        if(!q.isEmpty()){
             answer = false;
         }
 
