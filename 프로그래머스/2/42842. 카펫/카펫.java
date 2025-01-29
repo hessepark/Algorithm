@@ -5,15 +5,19 @@ class Solution {
     public int[] solution(int brown, int yellow) {
         int[] answer = new int[2];
         
-        int sum = brown + yellow;
+        //무조건 가로 길이가 3이상이어야지 노란색이 하나가 나옴
         
-        for(int i=3;i<=Math.sqrt(sum);i++){
-            if(sum%i==0){
+        int count = brown+yellow;
+        
+        for(int i=3;i<count;i++){
+            if(count%i==0){
                 //System.out.println(i);
-               if((i-2)*((sum/i)-2)==yellow){
-                   answer[0]=sum/i;
-                   answer[1]=i;
-               }
+                if((i-2)*(count/i-2)==yellow){
+                   answer[0]=i;
+                   answer[1]=count/i;
+                }
+                
+                
             }
         }
         
