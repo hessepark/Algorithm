@@ -7,33 +7,34 @@ class Solution {
     public static int max;
     
     public int solution(int k, int[][] dungeons) {
-        
-        isVisited = new boolean[dungeons.length];
         max=Integer.MIN_VALUE;
         
-        dfs(k,0,dungeons); //현재 피로도, 깊이, 던전
+        isVisited = new boolean[dungeons.length];
+        
+        dfs(k,0,dungeons);
         
         return max;
     }
     
-    public static void dfs(int cur,int depth,int[][]dungeons){
-    
-        max=Math.max(depth,max);
+    public static void dfs(int cur,int depth,int[][] dungeons){
+        
+        max=Math.max(max,depth);
         
         if(depth==dungeons.length){
             return;
         }
         
         for(int i=0;i<dungeons.length;i++){
-            if(!isVisited[i]&&cur>=dungeons[i][0]){
-                isVisited[i]=true;
-                dfs(cur-dungeons[i][1],depth+1,dungeons);
-                isVisited[i]=false;
+            if(!isVisited[i]){
+                if(cur>=dungeons[i][0]){
+                    isVisited[i]=true;
+                    dfs(cur-dungeons[i][1],depth+1,dungeons);
+                    isVisited[i]=false;
+                }
             }
+            
         }
         
-        
     }
-    
     
 }
