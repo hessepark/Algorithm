@@ -13,25 +13,28 @@ class Solution {
 
 		isVisited = new boolean[numbers.length()];
 
-		dfs("", numbers);
+		dfs(0,0, numbers);
 
 		return ans;
 	}
 
-	public static void dfs(String cur, String numbers) {
+	public static void dfs(int num,int depth,String numbers) {
 
 		//System.out.println(cur);
 
-		if (cur.length()!=0&&isPrime(Integer.parseInt(cur))) {
-			set.add(Integer.parseInt(cur));
+		if (isPrime(num)) {
+			set.add(num);
 			ans++;
 		}
+        
+        if(depth==numbers.length()){
+            return;
+        }
 
 		for (int i = 0; i < numbers.length(); i++) {
 			if (!isVisited[i]) {
 				isVisited[i] = true;
-
-				dfs(cur + numbers.charAt(i), numbers);
+				dfs(num*10+numbers.charAt(i)-'0',depth+1,numbers);
 				//System.out.println("종료: " + numbers.charAt(i) + "종료 당시 cur:" + cur);
 				isVisited[i] = false;
 			}
