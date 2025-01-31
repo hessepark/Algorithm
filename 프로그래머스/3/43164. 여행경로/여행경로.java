@@ -52,12 +52,12 @@ class Solution {
                    list.add(tickets[i][1]);
                    //System.out.println(list+" "+i); //
                    dfs(tickets[i][1],tickets);
-                   if(list.size()==tickets.length+1){
+                   if(list.size()==tickets.length+1){ //이게 없으면 할 수 있는 조합 다 해봐야 끝난다.
                      //  System.out.println("리턴 되는 중:"+list);
                        return;
                    }
                    isVisited[i]=false;
-                   list.remove(list.size()-1);
+                   list.remove(list.size()-1); 
                }
              }
         }
