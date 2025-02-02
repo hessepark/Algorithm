@@ -11,15 +11,16 @@ class Solution {
             list.add(citations[i]);
         }
         
-        Collections.sort(list,Collections.reverseOrder()); //Integer type 배열이면 Arrays.sort도 가능
+        Collections.sort(list,Collections.reverseOrder());
         
-        for(int i=0;i<citations.length;i++){
+        for(int i=0;i<list.size();i++){
             if(list.get(i)<i+1){
-                return i;
+              return i;
+
             }
         }
         
         return list.size();
-        
-        }
+
+    }
 }
