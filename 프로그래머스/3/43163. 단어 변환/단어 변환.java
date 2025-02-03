@@ -1,38 +1,46 @@
 import java.util.*;
 import java.io.*;
 
-class Solution { //큐에 길이 넣어놓고 뽑혔을 때 그만하기
+class Solution {
     
-    public static int visited[];
+    public static boolean isVisited[];
+    public static ArrayDeque<Word>q;
+    public static int answer;
     
     public int solution(String begin, String target, String[] words) {
-        int answer = 0;
+        answer = 0;
         
-        visited=new int[words.length];
-        
-        ArrayDeque<Word>q = new ArrayDeque<>();
+        isVisited = new boolean[words.length];
+        q = new ArrayDeque<>();
         q.add(new Word(begin,0));
         
+        bfs(begin,target,words);
+        
+        return answer;
+    }
+    
+    public static void bfs(String cur, String target, String[] words){
+               
         while(!q.isEmpty()){
+        
             Word now = q.poll();
             
-            //System.out.println("현재 내 값:"+now.cnt);
-            
             if(now.word.equals(target)){
-                return now.cnt;
+                answer=now.cnt;
+                return;
             }
             
             for(int i=0;i<words.length;i++){
-                if(visited[i]==0&&isPossible(now.word,words[i])){
-                    visited[i]=now.cnt+1;
-                    //System.out.println("비교: "+now.word+" "+words[i]+" "+visited[i]);
-                    q.add(new Word(words[i],visited[i]));
+                if(!isVisited[i]&&isPossible(words[i],now.word)){
+                    isVisited[i]=true;
+                    q.add(new Word(words[i],now.cnt+1));
                 }
             }
             
         }
         
-        return answer;
+        
+        
     }
     
     public static boolean isPossible(String a,String b){
@@ -43,23 +51,24 @@ class Solution { //큐에 길이 넣어놓고 뽑혔을 때 그만하기
             if(a.charAt(i)!=b.charAt(i)){
                 cnt++;
             }
-            if(cnt>1){
-                return false;
-            }
         }
         
-        if(cnt==1)
+        if(cnt!=1){
+            return false;
+        }
+        else{
             return true;
-        
-        return false;
+        }
         
     }
+    
 }
 
 class Word {
     String word;
     int cnt;
-    public Word (String word, int cnt){
+    
+    public Word(String word, int cnt){
         this.word=word;
         this.cnt=cnt;
     }
