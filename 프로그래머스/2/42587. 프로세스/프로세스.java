@@ -5,36 +5,40 @@ class Solution {
     public int solution(int[] priorities, int location) {
         int answer = 0;
         
-        Integer[] list=new Integer[priorities.length];
+        PriorityQueue<Integer>q = new PriorityQueue<>((o1,o2)->Integer.compare(o2,o1));
         
         for(int i=0;i<priorities.length;i++){
-            list[i]=priorities[i];
+            q.add(priorities[i]);
         }
         
-        Arrays.sort(list,Collections.reverseOrder());
+        int cnt=0;
+        boolean isFind=false;
         
-        ArrayDeque<Integer>q = new ArrayDeque<>();
-        for(int i=0;i<list.length;i++){
-            q.add(list[i]);
-        }
-        
-        int cnt=1;
+        int now = q.poll();
         
         while(true){
             
-            for(int i=0;i<priorities.length;i++){
-                if(priorities[i]==q.peekFirst()){
-                    if(location==i){
-                        return cnt;
-                    }
-                    q.poll();
+            for(int i=0;i<priorities.length;i++){  
+
+                if(now==priorities[i]){
+                    //System.out.println(cnt);
                     cnt++;
+                                  
+                    if(location==i){
+                        isFind=true;
+                        break;
+                    }
+                    
+                    now = q.poll();
                 }
             }
             
+            if(isFind){
+                break;
+            }
             
         }
-       
-        //return answer;
+        
+        return cnt;
     }
 }
