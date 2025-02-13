@@ -12,9 +12,9 @@ class Solution {
         list = new ArrayList<>();
         isVisited = new boolean[cards.length+1];
         
-        for(int i=0;i<cards.length;i++){
-            if(!isVisited[cards[i]]){
-                bfs(cards,cards[i]);
+        for(int i=1;i<=cards.length;i++){
+            if(!isVisited[i]){
+                bfs(cards,i);
             }
         }
         
