@@ -7,20 +7,12 @@ class Solution {
         
         answer = new int[s.length()];
         
-     
+        HashMap<Character,Integer>map = new HashMap<>();
+        
         for(int i=0;i<s.length();i++){
-            int idx=-1;
-            for(int j=0;j<i;j++){
-                if(s.charAt(i)==s.charAt(j)){
-                    idx=j;
-                }
-            }
-            if(idx!=-1){
-                answer[i]=i-idx;
-            }
-            else{
-                answer[i]=idx;
-            }
+            char ch = s.charAt(i);
+            answer[i]=i-map.getOrDefault(ch,(i+1));
+            map.put(ch,i);
         }
         
         return answer;
