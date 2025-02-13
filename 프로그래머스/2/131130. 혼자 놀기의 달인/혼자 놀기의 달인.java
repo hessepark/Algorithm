@@ -13,10 +13,10 @@ class Solution {
         list = new ArrayList<>();
         isVisited = new boolean[cards.length+1];
         
-        for(int i=0;i<cards.length;i++){//
-            if(!isVisited[cards[i]]){
+        for(int i=1;i<=cards.length;i++){//
+            if(!isVisited[i]){
                 depth=0;
-                dfs(cards,cards[i]);
+                dfs(cards,i);
                 list.add(depth);
             }
         }
