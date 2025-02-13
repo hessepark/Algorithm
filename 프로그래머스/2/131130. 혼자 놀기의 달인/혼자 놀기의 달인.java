@@ -13,10 +13,10 @@ class Solution {
         list = new ArrayList<>();
         isVisited = new boolean[cards.length+1];
         
-        for(int i=0;i<cards.length;i++){
-            if(!isVisited[cards[i]]){
+        for(int i=1;i<=cards.length;i++){
+            if(!isVisited[i]){
                 depth=1;
-                dfs(cards,cards[i]);
+                dfs(cards,i);
                 list.add(depth);
             }
         }
@@ -43,6 +43,9 @@ class Solution {
         }
         
         System.out.println("리턴되는 순서:"+num);
+        
+        //i로 하냐, cards[i]로 하냐는 상관 없음.
+        //카드가 일렬로 놓여져있으면, 앞에서 첫 번째를 뽑나, 실제 값 1을 뽑나 상관이 없다.
         
         return;
     }
