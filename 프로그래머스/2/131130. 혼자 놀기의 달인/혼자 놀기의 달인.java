@@ -4,45 +4,42 @@ import java.io.*;
 class Solution {
     
     public static boolean isVisited[];
-    //public static ArrayList<Integer> list;
+    public static ArrayList<Integer> list;
+    public static int depth;
     
     public int solution(int[] cards) {
         int answer = 0;
         
-        PriorityQueue<Integer>q = new PriorityQueue<>((o1,o2)->(Integer.compare(o2,o1)));
+        list = new ArrayList<>();
         isVisited = new boolean[cards.length+1];
         
         for(int i=0;i<cards.length;i++){
-            if(isVisited[cards[i]]){
-                continue;
+            if(!isVisited[cards[i]]){
+                depth=1;
+                dfs(cards,cards[i]);
+                list.add(depth);
             }
-            
-            int cur = cards[i];
-            int cnt=0;
-            
-            while(!isVisited[cur]){
-            
-                cnt++;
-                isVisited[cur]=true;
-                
-                cur=cards[cur-1];
-                
-                
-            }
-            
-            q.add(cnt);
-            
         }
         
-        
-        
-        
-        
-        if(q.size()<2){
+        if(list.size()==1){
             return 0;
         }
         
-        return q.poll()*q.poll();
+        Collections.sort(list,Collections.reverseOrder());
+        return list.get(0)*list.get(1);
         
+    }
+    
+    public static void dfs(int[] cards, int num){
+        
+        isVisited[num]=true;
+        int next = cards[num-1];
+        
+        if(!isVisited[next]){
+            depth++;
+            dfs(cards,next);
+        }
+        
+        return;
     }
 }
