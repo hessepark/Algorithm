@@ -35,10 +35,14 @@ class Solution {
         isVisited[num]=true;
         int next = cards[num-1];
         
+        System.out.println(num);
+        
         if(!isVisited[next]){
             depth++;
             dfs(cards,next);
         }
+        
+        System.out.println("리턴되는 순서:"+num);
         
         return;
     }
