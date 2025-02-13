@@ -5,6 +5,7 @@ class Solution {
     
     public static boolean isVisited[];
     public static ArrayList<Integer> list;
+    public static int depth;
     
     public int solution(int[] cards) {
         int answer = 0;
@@ -12,9 +13,11 @@ class Solution {
         list = new ArrayList<>();
         isVisited = new boolean[cards.length+1];
         
-        for(int i=1;i<=cards.length;i++){
-            if(!isVisited[i]){
-                bfs(cards,i);
+        for(int i=0;i<cards.length;i++){//
+            if(!isVisited[cards[i]]){
+                depth=0;
+                dfs(cards,cards[i]);
+                list.add(depth);
             }
         }
         
@@ -22,33 +25,28 @@ class Solution {
             return 0;
         }
         
+        System.out.println(list);
+        
         Collections.sort(list,Collections.reverseOrder());
         return list.get(0)*list.get(1);
         
     }
     
-    public static void bfs(int[] cards, int num){
-        
-        isVisited[num]=true;
-        int cnt = 1;
-        ArrayDeque<Integer>q = new ArrayDeque<>();
+    public static void dfs(int[] cards, int num){
 
-        q.add(num);
-        
-        while(!q.isEmpty()){
-            int next = cards[q.poll()-1];
-            if(!isVisited[next]){
-                q.add(next);
-                isVisited[next]=true;
-                cnt++;
-            }
+        if(!isVisited[num]){
+            isVisited[num]=true;
+            depth++;
+            int next = cards[num-1];
+            System.out.println("방문: "+num);
+            dfs(cards,next);
         }
         
-        list.add(cnt);
         
         
         //i로 하냐, cards[i]로 하냐는 상관 없음.
         //카드가 일렬로 놓여져있으면, 앞에서 첫 번째를 뽑나, 실제 값 1을 뽑나 상관이 없다.
         
+        return;
     }
 }
