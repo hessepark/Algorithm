@@ -4,12 +4,12 @@ import java.io.*;
 class Solution {
     
     public static boolean isVisited[];
-    public static ArrayList<Integer> list;
+    //public static ArrayList<Integer> list;
     
     public int solution(int[] cards) {
         int answer = 0;
         
-        list = new ArrayList<>();
+        PriorityQueue<Integer>q = new PriorityQueue<>((o1,o2)->(Integer.compare(o2,o1)));
         isVisited = new boolean[cards.length+1];
         
         for(int i=0;i<cards.length;i++){
@@ -30,19 +30,19 @@ class Solution {
                 
             }
             
-            list.add(cnt);
+            q.add(cnt);
             
         }
         
-        Collections.sort(list,Collections.reverseOrder());
         
-        System.out.println(list);
         
-        if(list.size()<2){
+        
+        
+        if(q.size()<2){
             return 0;
         }
         
-        return list.get(0)*list.get(1);
+        return q.poll()*q.poll();
         
     }
 }
