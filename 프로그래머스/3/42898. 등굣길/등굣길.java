@@ -17,6 +17,13 @@ class Solution {
                 
                 if(dp[i][j]==-1) continue;
                 
+//              if(i==1&&j==1) continue;
+                
+//                 if(dp[i][j]==-1){
+//                     dp[i][j]=0;
+//                     continue;
+//                 }
+                
                 if(j>1) dp[i][j]=Math.max(dp[i][j],dp[i][j]+dp[i][j-1]);
                 if(i>1) dp[i][j]=Math.max(dp[i][j],dp[i][j]+dp[i-1][j]);
                 
