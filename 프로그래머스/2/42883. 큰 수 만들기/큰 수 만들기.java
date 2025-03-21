@@ -1,42 +1,32 @@
+import java.util.*;
+import java.io.*;
+
 class Solution {
-    public static String solution(String number, int k) {
-        //String answer = "";
+    public String solution(String number, int k) {
+        String answer = "";
         
-        StringBuilder sb = new StringBuilder();
+        ArrayDeque<Integer>q = new ArrayDeque<>();
         
-        int num=number.length()-(number.length()-k-1); //5
-        
-        //String parse=number.substring(0,num); // 41772
-        
-        //System.out.println(parse);
-        
-        int maxIndex=0;
-       
-        for(int i=1;i<=number.length()-k;i++){
-        	int max=Integer.MIN_VALUE;
-            for(int j=maxIndex;j<num;j++){
-                if(max<number.charAt(j)-'0'){
-                    maxIndex=j;
-                    max=number.charAt(j)-'0';
-                }
+        for(int i=0;i<number.length();i++){
+            while(!q.isEmpty()&&k>0&&number.charAt(i)-'0'>q.peekLast()){
+                q.pollLast();
+                k--;
             }
             
-            //answer+=number.charAt(maxIndex);
-            sb.append(max);
-            
-            if(sb.length()==number.length()-k)break;
-            
-            ++maxIndex;
-            ++num;
-            
-            //System.out.println(parse);
+            //System.out.println(q);
+            q.add(number.charAt(i)-'0');
         }
         
-        return sb.toString();
-    }
-    
-    public static void main(String[] args) {
-    	String number="4177252841";
-    	System.out.println(solution(number,4));;
+        while(k!=0){
+            q.pollLast();
+            k--;
+        }
+        
+        for(int n:q){
+            answer+=n;
+        }
+        
+        
+        return answer;
     }
 }
