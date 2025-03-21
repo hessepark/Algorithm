@@ -1,71 +1,37 @@
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
+import java.io.*;
 
 class Solution {
-    public static int solution(int n, int[] lost, int[] reserve) {
+    public int solution(int n, int[] lost, int[] reserve) {
         int answer = 0;
         
-        Arrays.sort(lost);
-        Arrays.sort(reserve);
-        
-        answer=n-lost.length;
-        
-        ArrayList<Integer>lo = new ArrayList<>();
+        int arr[]=new int[n+2];
         
         for(int i=0;i<lost.length;i++){
-            lo.add(lost[i]);
+            arr[lost[i]]-=1;
         }
-        
-        ArrayList<Integer>re = new ArrayList<>();
         
         for(int i=0;i<reserve.length;i++){
-            re.add(reserve[i]);
+            arr[reserve[i]]+=1;
         }
         
-        
-        System.out.println(lo);
-        System.out.println(re);
-        
-        for(int i=0;i<lo.size();i++){
-            for(int j=0;j<re.size();j++){
-                if(lo.get(i)==re.get(j)){
-                    re.remove(j);
-                    lo.remove(i);
-                    i--;
-                    answer++;
-                    break;
-                }
-                else if(lo.get(i)<re.get(j)){
-                    break;
-                }
+        for(int i=1;i<=n;i++){
+            if(arr[i]==1&&arr[i-1]==-1){
+                arr[i]--;
+                arr[i-1]++;
+            }
+            else if(arr[i]==1&&arr[i+1]==-1){
+                arr[i]--;
+                arr[i+1]++;
             }
         }
         
-        System.out.println(lo);
-        System.out.println(re);
-        
-        for(int i=0;i<lo.size();i++){
-            for(int j=0;j<re.size();j++){
-                if(lo.get(i)==re.get(j)+1){
-                	//System.out.println("빌린 사람:"+lo.get(i)+"빌려준 사람:"+re.get(j));
-                    re.remove(j);
-                    answer++;
-                   
-                    break;
-                }
-                else if(lo.get(i)==re.get(j)-1){
-                	//System.out.println("빌린 사람:"+lo.get(i)+"빌려준 사람:"+re.get(j));
-                    re.remove(j);
-                    answer++;
-                    
-                    break;
-                }
+        for(int i=1;i<=n;i++){
+            if(arr[i]==0||arr[i]==1){
+                answer++;
             }
         }
-        
         
         return answer;
     }
-
-
 }
