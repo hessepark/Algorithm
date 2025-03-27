@@ -1,81 +1,78 @@
 import java.util.*;
 import java.io.*;
-
 class Solution {
     
-    public static boolean isVisited[];
     public static ArrayList<Integer> list[];
+    public static boolean[] isVisited;
+    public static int cnt;
     
     public int solution(int n, int[][] costs) {
         int answer = 0;
         
-        Arrays.sort(costs,(o1,o2)->o2[2]-o1[2]);
+        Arrays.sort(costs, (o1,o2)->Integer.compare(o2[2],o1[2]));
         
-//         for(int i=0;i<costs.length;i++){
-//             System.out.println(costs[i][2]);
-//         }
-        
-        //제외 대상
-        //int except[]=new int[costs.length];
-        isVisited=new boolean[n];
         list = new ArrayList[n];
+        
         for(int i=0;i<n;i++){
-            list[i]=new ArrayList<>();
+            list[i] = new ArrayList<>();
         }
         
-        for(int i=0;i<costs.length;i++){
-            int a=costs[i][0];
-            int b=costs[i][1];
+        for(int i=0;i<costs.length;i++) {
+            int a = costs[i][0];
+            int b = costs[i][1];
+            int v = costs[i][2];
             
             list[a].add(b);
             list[b].add(a);
-            
-            answer+=costs[i][2];
+            answer+=v;
         }
+                  
+        int except=0;
         
         for(int i=0;i<costs.length;i++){
+              
+            if(costs.length-except==n-1){
+                break;
+            }
             
-            int a=costs[i][0];
-            int b=costs[i][1];
+            int a = costs[i][0];
+            int b = costs[i][1];
+            int v = costs[i][2];
             
             list[a].remove(Integer.valueOf(b));
             list[b].remove(Integer.valueOf(a));
             
             isVisited=new boolean[n];
+            cnt=0;
             
-            int cnt=dfs(0);
+            dfs(0);
             
-            //System.out.println(cnt);
-            
-            if(cnt==n){
-                answer-=costs[i][2];
-            }
-            
-            else{
+            //n이 4면 최소 3개는 봐야함
+            if(cnt!=n){
                 list[a].add(b);
                 list[b].add(a);
             }
+            else{
+                answer-=v;
+                except++;
+            }
             
-        
             
         }
         
         return answer;
     }
     
-    public static int dfs(int n){
+    public static void dfs(int num){
         
-        isVisited[n]=true;
+        isVisited[num]=true;
+        cnt++;
         
-        int cnt=1;
-        
-        for(int child:list[n]){
+        for(int child:list[num]){
             if(!isVisited[child]){
-               cnt+=dfs(child);
+                dfs(child);
             }
         }
-        
-        return cnt;
         
     }
 }
