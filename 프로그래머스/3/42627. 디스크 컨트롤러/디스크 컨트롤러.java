@@ -20,16 +20,21 @@ class Solution {
             while(idx<jobs.length&&jobs[idx][0]<=time){
                     q.add(jobs[idx++]);
                 }
-            if(!q.isEmpty()){
+            // if(!q.isEmpty()){
+            
+            if(q.isEmpty()){
+                time++;
+                continue;
+            }
+            
                 int num[]=q.poll();
                 count++;
                 time+=num[1];
                 answer+=time-num[0];
-            }
-            else{
-                time++;
-            }
-            System.out.println(answer);
+            // }
+            // else{
+            //     time++;
+            // }
         }
         
         
