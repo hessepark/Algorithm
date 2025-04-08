@@ -7,17 +7,17 @@ class Solution {
         
         HashMap<String,Integer>map = new HashMap<>();
         
+        HashSet<String>set = new HashSet<>();
+        
         for(int i=0;i<clothes.length;i++){
             map.put(clothes[i][1],map.getOrDefault(clothes[i][1],0)+1);
+            set.add(clothes[i][1]);
         }
         
-        for(String sort: map.keySet()){
-            answer*=map.get(sort)+1;
+        for(String item:set){
+            answer*=map.get(item)+1;    
         }
         
-        answer-=1;
-        
-        
-        return answer;
+        return answer-1;
     }
 }
