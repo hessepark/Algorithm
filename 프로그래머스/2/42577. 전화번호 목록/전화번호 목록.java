@@ -14,7 +14,7 @@ class Solution {
         
         for(int i=0;i<phone_book.length;i++){
             for(int j=0;j<phone_book[i].length();j++){
-                if(map.getOrDefault( phone_book[i].substring(0,j) ,0)==1){
+                if(map.containsKey(phone_book[i].substring(0,j))){
                     System.out.println(phone_book[i].substring(0,j) +" 현재 나:"+phone_book[i]);
                     return false;
                 }
