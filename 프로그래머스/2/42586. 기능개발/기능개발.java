@@ -1,47 +1,51 @@
 import java.util.*;
-import java.util.*;
+import java.io.*;
 
 class Solution {
     public int[] solution(int[] progresses, int[] speeds) {
         int[] answer = {};
         
-        ArrayDeque<Integer>q = new ArrayDeque<>();
+        //작업 일수 담음
+        ArrayDeque<Integer>list = new ArrayDeque<>();
         
         for(int i=0;i<progresses.length;i++){
+            int num = (100-progresses[i]);
             
-            int val= (100-progresses[i])/speeds[i];
-            
-            if((100-progresses[i])%speeds[i]==0){
-                q.add(val);
+            if(num%speeds[i]==0){
+                list.add(num/speeds[i]);
             }
             else{
-                q.add(val+1);
+                list.add(num/speeds[i]+1);
             }
             
         }
         
-        //System.out.println(q);
+        //System.out.println(list);
+        
+        
+        //빼내는 수 담음
         
         ArrayList<Integer>result = new ArrayList<>();
         
-        while(!q.isEmpty()){
+        while(!list.isEmpty()){
+            int num = list.pollFirst();
+            
             int cnt=1;
-            int num = q.poll();
             
-            while(!q.isEmpty()&&num>=q.peekFirst()){
-                q.poll();
-                cnt++;
+         
+              while(!list.isEmpty()&&list.peekFirst()<=num){
+                    cnt++;
+                    list.pollFirst();
             }
-            
             result.add(cnt);
-            
         }
         
-        answer =new int[result.size()];
+        answer=new int[result.size()];
         
-        for(int i=0;i<answer.length;i++){
-            answer[i] = result.get(i);
+        for(int i=0;i<result.size();i++){
+            answer[i]=result.get(i);
         }
+        
         
         return answer;
     }
