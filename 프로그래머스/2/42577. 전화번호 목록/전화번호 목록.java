@@ -5,23 +5,22 @@ class Solution {
     public boolean solution(String[] phone_book) {
         boolean answer = true;
         
-        HashMap<String,Integer>map = new HashMap<>();
-        
-
+        HashSet<String> set = new HashSet<>();
+    
         for(int i=0;i<phone_book.length;i++){
-            map.put(phone_book[i],1);
+            set.add(phone_book[i]);
         }
         
         for(int i=0;i<phone_book.length;i++){
             for(int j=0;j<phone_book[i].length();j++){
-                if(map.containsKey(phone_book[i].substring(0,j))){
-                    System.out.println(phone_book[i].substring(0,j) +" 현재 나:"+phone_book[i]);
+                if(set.contains(phone_book[i].substring(0,j))){
                     return false;
                 }
             }
-            
         }
         
-        return answer;
+        return true;
+        
+      
     }
 }
