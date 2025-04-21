@@ -9,8 +9,7 @@ class Solution {
         
         ArrayDeque<Integer>q = new ArrayDeque<>();
         
-        for(int i=0;i<prices.length;i++){
-            
+        for(int i=0;i<prices.length;i++) {
             while(!q.isEmpty()){
                 int j = q.peekLast();
                 if(prices[j]>prices[i]){
@@ -21,13 +20,12 @@ class Solution {
                     break;
                 }
             }
-            q.add(i);
-            
+            q.addLast(i);
         }
         
         while(!q.isEmpty()){
-            int idx=q.pollLast();
-            answer[idx]=prices.length-idx-1;
+            int num = q.pollLast();
+            answer[num]=prices.length-num-1;
         }
         
         return answer;
