@@ -5,24 +5,29 @@ class Solution {
     boolean solution(String s) {
         boolean answer = true;
 
-        ArrayDeque<String>q= new ArrayDeque<>();
+        ArrayDeque<Character>q = new ArrayDeque<>();
         
         for(int i=0;i<s.length();i++){
+            
             if(s.charAt(i)=='('){
-                q.add("(");
+                q.add(s.charAt(i));
             }
-            else {
+            else{
                 if(q.isEmpty()){
                     return false;
                 }
-                q.poll();
-            }
+                else{
+                    q.pollLast();
+                }
+            }    
+            
         }
         
         if(!q.isEmpty()){
-            answer=false;
+            return false;
         }
+        
+        return true;
 
-        return answer;
     }
 }
