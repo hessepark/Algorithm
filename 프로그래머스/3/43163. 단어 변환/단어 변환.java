@@ -1,53 +1,56 @@
 import java.util.*;
 import java.io.*;
-
 class Solution {
+    
+    public static boolean isVisited[];
+    
     public int solution(String begin, String target, String[] words) {
-        int answer = 0;
         
         ArrayDeque<Word>q = new ArrayDeque<>();
-        boolean[] isVisited = new boolean[words.length];
         q.add(new Word(begin,0));
+        isVisited=new boolean[words.length];
         
         while(!q.isEmpty()){
-            Word word = q.poll();
             
-            if(word.word.equals(target)){
-                return word.cnt;
+            Word now = q.poll();
+            
+            if(now.word.equals(target)){
+                return now.cnt;
             }
             
             for(int i=0;i<words.length;i++){
-                if(!isVisited[i]&&isPossible(words[i],word.word)){
-                    q.add(new Word(words[i],word.cnt+1));
-                    //System.out.println(words[i]+" "+(word.cnt+1));
+                if(!isVisited[i]&&isCount(now.word,words[i])==1){
                     isVisited[i]=true;
+                    q.add(new Word(words[i],now.cnt+1));
                 }
             }
             
         }
         
-        return answer;
+        return 0;
     }
     
-    public static boolean isPossible(String a,String b){
+    public static int isCount(String a,String b){
+        
         int cnt=0;
         
         for(int i=0;i<a.length();i++){
             if(a.charAt(i)!=b.charAt(i)){
                 cnt++;
             }
-            if(cnt>1) return false;
         }
         
-        return true;
+        return cnt;
+        
     }
+    
 }
 
 class Word {
     String word;
     int cnt;
     
-    public Word(String word, int cnt){
+    public Word(String word,int cnt){
         this.word=word;
         this.cnt=cnt;
     }
