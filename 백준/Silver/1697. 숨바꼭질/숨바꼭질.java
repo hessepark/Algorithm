@@ -3,7 +3,6 @@ import java.util.Scanner;
 
 class Main {
 
-	public static int n, k;
 	public static int isVisited[];
 
 	public static void main(String[] args) {
@@ -11,46 +10,40 @@ class Main {
 
 		isVisited = new int[100001];
 
-		n = sc.nextInt();
-		k = sc.nextInt();
-
-		bfs(n);
-
-		System.out.println(isVisited[k]);
-	}
-
-	public static void bfs(int num) {
+		int sp = sc.nextInt();
+		int ep = sc.nextInt();
 
 		ArrayDeque<Integer> q = new ArrayDeque<>();
-		q.add(num);
-		isVisited[num] = 0;
+		q.add(sp);
+		isVisited[sp] = 0;
 
 		while (!q.isEmpty()) {
 
 			int now = q.poll();
-
-			if (now == k) {
-				return;
+			
+			if(now==ep) {
+				System.out.println(isVisited[now]);
+				//System.out.println(q);
+				break;
 			}
 
-			int arr[] = { now - 1, now + 1, now * 2 };
+			int next[] = { now + 1, now - 1, 2 * now };
 
 			for (int i = 0; i < 3; i++) {
-				if (!isRange(arr[i])) {
+
+				if (next[i] < 0 || next[i] > 100000) {
 					continue;
 				}
-				if (isVisited[arr[i]] == 0) {
-					isVisited[arr[i]] = isVisited[now] + 1;
-					q.add(arr[i]);
+
+				if (isVisited[next[i]] == 0) {
+					q.add(next[i]);
 					//System.out.println(q);
+					isVisited[next[i]] = isVisited[now] + 1;
 				}
+
 			}
 
 		}
 
-	}
-
-	public static boolean isRange(int num) {
-		return num >= 0 && num <= 100000;
 	}
 }
