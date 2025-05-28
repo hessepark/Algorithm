@@ -1,11 +1,8 @@
 import java.util.*;
 import java.io.*;
 class Solution {
-    
     public static boolean isVisited[];
-    
     public int solution(String begin, String target, String[] words) {
-        
         ArrayDeque<Word>q = new ArrayDeque<>();
         q.add(new Word(begin,0));
         isVisited=new boolean[words.length];
@@ -20,10 +17,11 @@ class Solution {
             
             for(int i=0;i<words.length;i++){
                 if(!isVisited[i]&&isCount(now.word,words[i])==1){
-                    isVisited[i]=true;
                     q.add(new Word(words[i],now.cnt+1));
+                    isVisited[i]=true;
                 }
             }
+            
             
         }
         
@@ -43,13 +41,11 @@ class Solution {
         return cnt;
         
     }
-    
 }
 
-class Word {
+class Word{
     String word;
     int cnt;
-    
     public Word(String word,int cnt){
         this.word=word;
         this.cnt=cnt;
