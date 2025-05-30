@@ -1,10 +1,9 @@
 import java.util.*;
 import java.io.*;
 class Solution {
-    
     public static boolean isVisited[];
-    
     public int solution(String begin, String target, String[] words) {
+        int cnt = 0;
         
         isVisited=new boolean[words.length];
         
@@ -14,25 +13,23 @@ class Solution {
         while(!q.isEmpty()){
             
             Word now = q.poll();
-            
             if(now.word.equals(target)){
-                return now.cnt;
+                return now.num;
             }
             
             for(int i=0;i<words.length;i++){
                 if(!isVisited[i]&&isCount(words[i],now.word)==1){
-                    q.add(new Word(words[i],now.cnt+1));
                     isVisited[i]=true;
+                    q.add(new Word(words[i],now.num+1));
                 }
             }
             
         }
         
-        return 0;
+        return cnt;
     }
     
-    public static int isCount(String a,String b){
-        
+    public static int isCount(String a,String b) {
         int cnt=0;
         
         for(int i=0;i<a.length();i++){
@@ -46,11 +43,11 @@ class Solution {
     }
 }
 
-class Word{
+class Word {
     String word;
-    int cnt;
-    public Word(String word,int cnt){
+    int num;
+    public Word(String word,int num){
         this.word=word;
-        this.cnt=cnt;
+        this.num=num;
     }
 }
