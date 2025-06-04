@@ -1,79 +1,83 @@
 import java.util.ArrayDeque;
+import java.util.Arrays;
 import java.util.Scanner;
 
 class Main {
 
-	public static int n, m;
-	public static int maze[][];
-	public static int isVisited[][][];
-	public static int dr[] = { -1, 0, 1, 0 };
-	public static int dc[] = { 0, 1, 0, -1 };
+    public static int dr[] = {-1, 0, 1, 0};
+    public static int dc[] = {0, 1, 0, -1};
+    public static int visited[][][];
+    public static char map[][];
 
-	public static void main(String[] args) {
+    public static void main(String[] args) {
 
-		Scanner sc = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
 
-		n = sc.nextInt();
-		m = sc.nextInt();
+        int answer=0;
 
-		maze = new int[n + 1][m + 1];
-		isVisited = new int[n + 1][m + 1][2];
+        int n = sc.nextInt();
+        int m = sc.nextInt();
+        visited = new int[n + 1][m + 1][2];
+        map = new char[n + 1][m + 1];
 
-		for (int i = 1; i < n + 1; i++) {
-			String str = sc.next();
-			for (int j = 1; j < m + 1; j++) {
-				maze[i][j] = str.charAt(j-1)-'0';
-			}
-		}
+        sc.nextLine();
 
-		ArrayDeque<Point> q = new ArrayDeque<>();
-		q.add(new Point(1, 1, 0));
-		isVisited[1][1][0]=1;
+        for (int i = 1; i < n + 1; i++) {
+            String line = sc.nextLine();
+            for(int j=1;j<m+1;j++){
+                map[i][j]=line.charAt(j-1);
+            }
+        }
 
-		while (!q.isEmpty()) {
+        ArrayDeque<Pos> q = new ArrayDeque<>();
+        visited[1][1][0] = 1;
+        q.add(new Pos(1, 1, 0));
 
-			Point now = q.poll();
-			
-			if(now.r==n&&now.c==m) {
-				System.out.println(isVisited[now.r][now.c][now.isBroken]);
-				return;
-			}
-			
-			for(int i=0;i<4;i++) {
-				
-				int nr= dr[i]+now.r;
-				int nc= dc[i]+now.c;
-				
-				if(nr==0||nc==0||nr==n+1||nc==m+1) {
-					continue;
-				}
-				
-				if(isVisited[nr][nc][now.isBroken]==0&&maze[nr][nc]==0) {
-					isVisited[nr][nc][now.isBroken]=isVisited[now.r][now.c][now.isBroken]+1;
-					q.add(new Point(nr,nc,now.isBroken));
-				}
-				else if(now.isBroken==0&&isVisited[nr][nc][1]==0) {
-					isVisited[nr][nc][1]=isVisited[now.r][now.c][now.isBroken]+1;
-					q.add(new Point(nr,nc,1));
-				}
-				
-			}
+        while (!q.isEmpty()) {
 
-		}
-		
-		System.out.println("-1");
+            Pos now = q.poll();
 
-	}
+            if(now.r==n&&now.c==m){
+                System.out.println(visited[now.r][now.c][now.idx]);
+                return;
+            }
+
+            for (int i = 0; i < 4; i++) {
+                int nr = now.r + dr[i];
+                int nc = now.c + dc[i];
+
+                if (nr <= 0 || nc <= 0 || nr > n || nc > m) {
+                    continue;
+                }
+
+                if (visited[nr][nc][now.idx] == 0 && map[nr][nc] == '0') {
+                    q.add(new Pos(nr, nc, now.idx));
+                    visited[nr][nc][now.idx] = visited[now.r][now.c][now.idx] + 1;
+                }
+                else if(now.idx==0&&map[nr][nc]=='1'){
+                    q.add(new Pos(nr,nc,now.idx+1));
+                    visited[nr][nc][now.idx+1]=visited[now.r][now.c][now.idx]+1;
+                }
+
+            }
+
+        }
+
+        System.out.println(-1);
+
+
+
+    }
 }
 
-class Point {
-	int r;
-	int c;
-	int isBroken;
+class Pos {
+    int r;
+    int c;
+    int idx;
 
-	public Point(int r, int c, int isBroken) {
-		this.r = r;
-		this.c = c;
-		this.isBroken = isBroken;
-	}
+    public Pos(int r, int c, int idx) {
+        this.r = r;
+        this.c = c;
+        this.idx = idx;
+    }
 }
