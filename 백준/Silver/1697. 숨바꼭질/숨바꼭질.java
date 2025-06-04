@@ -3,47 +3,44 @@ import java.util.Scanner;
 
 class Main {
 
-	public static int isVisited[];
+    public static int visited[];
 
-	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
+    public static void main(String[] args) {
 
-		isVisited = new int[100001];
+        Scanner sc = new Scanner(System.in);
 
-		int sp = sc.nextInt();
-		int ep = sc.nextInt();
+        visited=new int[1000001];
 
-		ArrayDeque<Integer> q = new ArrayDeque<>();
-		q.add(sp);
-		isVisited[sp] = 0;
+        int start = sc.nextInt();
+        int end = sc.nextInt();
 
-		while (!q.isEmpty()) {
+        ArrayDeque<Integer>q = new ArrayDeque<>();
+        q.add(start);
+        visited[start]=1;
 
-			int now = q.poll();
-			
-			if(now==ep) {
-				System.out.println(isVisited[now]);
-				//System.out.println(q);
-				break;
-			}
+        while(!q.isEmpty()){
 
-			int next[] = { now + 1, now - 1, 2 * now };
+            int now = q.poll();
 
-			for (int i = 0; i < 3; i++) {
+            if(now==end){
+                System.out.println(visited[now]-1);
+                break;
+            }
 
-				if (next[i] < 0 || next[i] > 100000) {
-					continue;
-				}
+            int pos[] = {now-1,now+1,now*2};
 
-				if (isVisited[next[i]] == 0) {
-					q.add(next[i]);
-					//System.out.println(q);
-					isVisited[next[i]] = isVisited[now] + 1;
-				}
+            for(int i=0;i<3;i++){
+                if(pos[i]<0||pos[i]>100000){
+                    continue;
+                }
 
-			}
+                if(visited[pos[i]]==0){
+                    q.add(pos[i]);
+                    visited[pos[i]]=visited[now]+1;
+                }
+            }
 
-		}
+        }
 
-	}
+    }
 }
