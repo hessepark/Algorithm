@@ -1,19 +1,18 @@
 import java.util.*;
 import java.io.*;
-
 class Solution {
+    public static boolean visited[];
     public int solution(int[] info, int[][] edges) {
-        int answer = 0;
         
-        boolean visited[] = new boolean[info.length];
+        visited=new boolean[info.length];
         
-        visited[0]=true; // 루트에는 항상 양
+        visited[0]=true;
         
-        return dfs(visited, info, edges, 1, 0);
+        return dfs(info,edges,1,0);
     }
     
-    public static int dfs(boolean[] visited, int[] info, int[][] edges, int sheep,int wolf){
-        
+    public static int dfs(int[] info, int[][] edges, int sheep, int wolf){
+    
         if(sheep==wolf){
             return sheep;
         }
@@ -29,23 +28,19 @@ class Solution {
                 visited[child]=true;
                 
                 if(info[child]==0){
-                    maxSheep=Math.max(maxSheep,dfs(visited,info,edges,sheep+1,wolf));
+                    maxSheep=Math.max(maxSheep,dfs(info,edges,sheep+1,wolf));
                 }
-                
-                if(info[child]==1){
-                    maxSheep=Math.max(maxSheep,dfs(visited,info,edges,sheep,wolf+1));
+                else{
+                    maxSheep=Math.max(maxSheep,dfs(info,edges,sheep,wolf+1));
                 }
                 
                 visited[child]=false;
                 
             }
-            
         }
         
         return maxSheep;
         
-        
     }
-    
     
 }
