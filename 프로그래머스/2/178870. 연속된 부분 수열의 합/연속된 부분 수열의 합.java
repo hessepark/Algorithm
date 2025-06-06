@@ -2,26 +2,29 @@ import java.util.*;
 import java.io.*;
 class Solution {
     public int[] solution(int[] sequence, int k) {
-        int[] answer = {0,1000000};
+        int[] answer = new int[2];
         
-        int total=0;
+        int idx[]={0,1000000};
+        
         int start=0;
         
+        int sum=0;
         for(int end=0;end<sequence.length;end++){
-            total+=sequence[end];
-            
-            while(total>k){
-                total-=sequence[start];
+            sum+=sequence[end];
+            while(sum>k){
+                sum-=sequence[start];
                 start++;
             }
-            if(total==k){
-                if(end-start<answer[1]-answer[0]){
-                    answer[0]=start;
-                    answer[1]=end;
+            if(sum==k){
+                if(idx[1]-idx[0]>end-start){
+                    idx[1]=end;
+                    idx[0]=start;
                 }
             }
-            
         }
+        
+        answer[0]=idx[0];
+        answer[1]=idx[1];
         
         return answer;
     }
