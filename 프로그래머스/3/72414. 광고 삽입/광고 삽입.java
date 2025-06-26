@@ -32,7 +32,7 @@ class Solution {
             dp[i]+=dp[i-1];
         }
         
-        long max=dp[aT];;
+        long max=dp[aT-1];
         int startTime=0;
         
         for(int i=0;i<=pT-aT;i++){
