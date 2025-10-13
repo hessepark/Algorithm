@@ -28,8 +28,6 @@ public class Main {
 
         int ans=-1;
 
-        Arrays.sort(arr);
-
         for(int i=0;i<n;i++){
             for(int j=0;j<n;j++){
                 if(set.contains(arr[i]-arr[j])){
