@@ -15,24 +15,25 @@ class Main {
 			arr[i] = sc.nextInt();
 		}
 		
-		int k = find(arr, n);
+		int result = find(arr,n);
 		
-		System.out.println(k);
+		System.out.println(result);
+		
 	}
 	
 	public static int find(int[] arr, int n) {
-		
+	
 		int l=1;
 		int r=1000000000;
-		int ans = -1;
+		
+		int ans=-1;
 		
 		while(l<=r) {
-			int m=(l+r)/2;
-			//System.out.println(m);
+			int m =(l+r)/2;
 			
-			if(isPossible(arr,n,m)) {
-				r=m-1;
+			if(isPossible(arr,m,n)) {
 				ans=m;
+				r=m-1;
 			}
 			else {
 				l=m+1;
@@ -40,19 +41,21 @@ class Main {
 		}
 		
 		return ans;
+		
 	}
 	
-	public static boolean isPossible(int[] arr, int n, int m) {
-		int sum=0;
+	public static boolean isPossible(int[] arr, int m, int n) {
+		
+		long sum=0;
 		
 		for(int i=0;i<arr.length;i++) {
 			sum+=(arr[i]+m-1)/m;
 		}
 		
-		//System.out.println("m 출력: "+m +" sum 출력: "+sum);
-		
 		return sum<=n;
+		
 	}
+	
 
 	
 }
