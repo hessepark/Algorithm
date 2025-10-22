@@ -1,80 +1,67 @@
 import java.util.*;
 import java.io.*;
-
 class Solution {
-    
-    public static ArrayList<Integer> list[];
-    public static boolean isVisited[];
-    
     public int solution(int n, int[][] costs) {
-        int answer = 0;
+   
+        ArrayList<Integer>list[] = new ArrayList[n];
         
-        list = new ArrayList[n];
-        isVisited = new boolean[n];
+        Arrays.sort(costs,(o1,o2) -> o2[2]-o1[2]);
         
-        for(int i=0;i<n;i++){
+        list=new ArrayList[n];
+        
+        boolean isVisited[];
+        
+        int sum=0;
+        
+        for(int i=0;i<n;i++) {
             list[i] = new ArrayList<>();
         }
         
-        Arrays.sort(costs,((o1,o2)->Integer.compare(o2[2],o1[2])));
-        
-        for(int i=0;i<costs.length;i++){
-            
-            answer+=costs[i][2];
-            
-            int a = costs[i][0];
-            int b = costs[i][1];
+        for(int cost[]: costs){
+            int a=cost[0];
+            int b=cost[1];
+            sum+=cost[2];
             
             list[a].add(b);
-            list[b].add(a); 
+            list[b].add(a);
         }
         
-        int cnt=0;
-        
-        for (int i=0;i<costs.length;i++){
-            
-            if(costs.length-cnt==n-1){
-                break;
-            }
-                 
-            int a = costs[i][0];
-            int b = costs[i][1];
+        for(int cost[]:costs) {
+            int a=cost[0];
+            int b=cost[1];
+            int c=cost[2];
             
             list[a].remove(Integer.valueOf(b));
             list[b].remove(Integer.valueOf(a));
             
             isVisited=new boolean[n];
             
-            int connect=dfs(0);
-            
-            if(connect!=n){
+            if(dfs(list,0,isVisited)==n){
+                sum-=c;
+            }
+            else{
                 list[a].add(b);
                 list[b].add(a);
             }
-            else{
-                answer-=costs[i][2];
-                cnt++;
-            }
-            
         }
         
-        
-        return answer;
+        return sum;
     }
     
-    public static int dfs(int n){
+    public static int dfs(ArrayList<Integer>list[], int num, boolean[] isVisited) {
         
         int cnt=1;
-        isVisited[n] = true;
         
-        for(int child:list[n]){
-            if(!isVisited[child]){
-                cnt+=dfs(child);
+        isVisited[num]=true;
+        
+        for(int n:list[num]){
+            if(!isVisited[n]){
+                cnt+=dfs(list,n,isVisited);
             }
         }
         
         return cnt;
         
-        
     }
+    
 }
