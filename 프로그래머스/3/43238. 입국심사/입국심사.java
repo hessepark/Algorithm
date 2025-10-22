@@ -4,34 +4,32 @@ import java.io.*;
 class Solution {
     public long solution(int n, int[] times) {
         
-        Arrays.sort(times);
-        
         long l=0;
-        long r=(long)times[times.length-1]*n;
-        long ans=0;
+        long r=(long)n*1000000000;
+        long ans=-1;
         
         while(l<=r) {
-            long m=(l+r)/2;
+            long mid=(l+r)/2;
             
-            long sum=0;
-            
-            for(int i=0;i<times.length;i++) {
-                sum+=m/times[i];
-                
-                if(sum>=n) break;
-            }
-            
-            if(sum>=n){
-                ans=m;
-                r=m-1;
+            if(caculate(mid,times)>=n){
+                ans=mid;
+                r=mid-1;
             }
             else{
-                l=m+1;
+                l=mid+1;
             }
-            
         }
         
-        return ans;
+        return ans;   
+    }
+    
+    public static long caculate(long mid, int[] times) {
+        long sum=0;
         
+        for(int time:times){
+            sum+=mid/time;
+        }
+        
+        return sum;
     }
 }
