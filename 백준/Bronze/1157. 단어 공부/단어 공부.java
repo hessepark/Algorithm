@@ -22,17 +22,17 @@ class Main {
 		}
 		
 		int count=0;
-		int idx=-1;
+		char c='a';
 		
 		for(int i=0;i<cnt.length;i++) {
 			if(max==cnt[i]) {
-				idx=i;
+				c=(char)(i+'A');
 				count++;
 			}
 			if(count>=2) break;
 		}
 		
-		System.out.println(count>=2?'?':(char)(idx+'A'));
+		System.out.println(count>=2?'?':c);
 	}
 	
 
