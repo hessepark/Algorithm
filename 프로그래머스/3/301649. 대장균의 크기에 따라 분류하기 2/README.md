@@ -1,6 +1,6 @@
 # [level 3] 대장균의 크기에 따라 분류하기 2 - 301649 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/301649?gad_source=1&gad_campaignid=22366107751&gbraid=0AAAAAC_c4nBZRRvgEGgpXMQoRsWwTyG3a&gclid=CjwKCAjw6vHHBhBwEiwAq4zvA3aawjwMDHdflpkd8_7CYvbdY5csOoG20vf1F3Lz-HsyHa8xkS_FyhoCyoMQAvD_BwE) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/301649?gad_source=1&gad_campaignid=22366107751&gbraid=0AAAAAC_c4nBZRRvgEGgpXMQoRsWwTyG3a&gclid=CjwKCAjw6vHHBhBwEiwAq4zvAxxFecrV09fjkXAWzu000DQQlKmyTjSgBxhVzMXkHOek6JLrf9fFRRoCz1UQAvD_BwE) 
 
 ### 성능 요약
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2025년 10월 25일 23:44:56
+2025년 10월 26일 00:12:54
 
 ### 문제 설명
 
