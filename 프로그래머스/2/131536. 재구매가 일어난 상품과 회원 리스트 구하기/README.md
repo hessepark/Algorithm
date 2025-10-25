@@ -1,6 +1,6 @@
 # [level 2] 재구매가 일어난 상품과 회원 리스트 구하기 - 131536 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/131536) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/131536?gad_source=1&gad_campaignid=22366107751&gbraid=0AAAAAC_c4nBZRRvgEGgpXMQoRsWwTyG3a&gclid=CjwKCAjw6vHHBhBwEiwAq4zvA4VU3X_k5Ul5u_Bd3qHmCabuRErWqpEBcLcxc0rycmq5jCuBfGGgzxoCKT0QAvD_BwE) 
 
 ### 성능 요약
 
@@ -16,7 +16,7 @@ Empty
 
 ### 제출 일자
 
-2025년 06월 23일 16:21:07
+2025년 10월 25일 23:23:48
 
 ### 문제 설명
 
