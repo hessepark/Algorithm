@@ -19,20 +19,18 @@ class Main {
 		Arrays.sort(arr);
 		
 		int r=0;
-		//int sum=arr[r]-arr[l];
-		int ans=Integer.MAX_VALUE;
+		int diff=Integer.MAX_VALUE;
 		
 		for(int i=0;i<n;i++) {
 			while(arr[r]-arr[i]<m&&r<n-1) {
 				r++;
 			}
-			int diff=arr[r]-arr[i];
-			if(diff>=m)
-				ans=Math.min(ans, diff);
+			if(arr[r]-arr[i]>=m) {
+				diff=Math.min(diff, arr[r]-arr[i]);
+			}
 		}
 		
-		System.out.print(ans);
-
+		System.out.println(diff);
 		
 	
 	}
