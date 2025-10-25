@@ -1,6 +1,6 @@
 # [level 1] 12세 이하인 여자 환자 목록 출력하기 - 132201 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/132201) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/132201?gad_source=1&gad_campaignid=22366107751&gbraid=0AAAAAC_c4nBZRRvgEGgpXMQoRsWwTyG3a&gclid=CjwKCAjw6vHHBhBwEiwAq4zvA0JNlLy9zj5m6sHcMdI9k3K9mF6pbanPK55r5B91uK5k4LiBvZuk6hoCkaEQAvD_BwE) 
 
 ### 성능 요약
 
@@ -16,7 +16,7 @@ Empty
 
 ### 제출 일자
 
-2025년 10월 24일 21:45:10
+2025년 10월 25일 23:08:18
 
 ### 문제 설명
 
