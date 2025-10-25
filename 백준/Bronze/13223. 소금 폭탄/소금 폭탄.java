@@ -12,17 +12,12 @@ class Main {
 		
 		int timeSum1=Integer.parseInt(time1[0])*3600+Integer.parseInt(time1[1])*60+Integer.parseInt(time1[2]);
 		int timeSum2=Integer.parseInt(time2[0])*3600+Integer.parseInt(time2[1])*60+Integer.parseInt(time2[2]);
-		
-		
-		if(timeSum2==timeSum1) {
-			System.out.println("24:00:00");
-			return;
-		}
-		else if(timeSum2<timeSum1) {
-			timeSum2+=24*3600;
-		}
-		
+			
 		int ans=timeSum2-timeSum1;
+		
+		if(ans<=0) {
+			ans+=24*3600;
+		}
 		
 		int t=ans/3600;
 		int m=ans%3600/60;
