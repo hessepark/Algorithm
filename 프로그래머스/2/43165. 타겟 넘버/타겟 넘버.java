@@ -2,27 +2,30 @@ import java.util.*;
 import java.io.*;
 
 class Solution {
-    public static int ans;
+    public static int cnt;
     public int solution(int[] numbers, int target) {
-        ans=0;
+        cnt=0;
         
-        perm(0,0,numbers,target);
+        dfs(0,0,numbers,target);
         
-        return ans;
+        return cnt;
+    
     }
     
-    public static void perm(int cur,int depth,int[] numbers,int target){
+    public static void dfs(int num, int depth, int[] numbers, int target) {
         
         if(depth==numbers.length){
-            if(cur==target){
-                ans++;
+            
+            if(num==target){
+                cnt++;
             }
+            
             return;
+            
         }
         
-        perm(cur+numbers[depth],depth+1,numbers,target);
-        
-        perm(cur-numbers[depth],depth+1,numbers,target);
+        dfs(num+numbers[depth],depth+1,numbers,target);
+        dfs(num-numbers[depth],depth+1,numbers,target);
         
     }
 }
