@@ -3,37 +3,37 @@ import java.io.*;
 
 class Solution {
     
-    public static boolean isVisited[];
     public static int max;
     
     public int solution(int k, int[][] dungeons) {
-        max=Integer.MIN_VALUE;
         
-        isVisited = new boolean[dungeons.length];
+        max = 0;
         
-        dfs(k,0,dungeons);
+        boolean isVisited[]=new boolean[dungeons.length];
+        
+        dfs(k,dungeons,0,isVisited);
         
         return max;
     }
     
-    public static void dfs(int cur,int depth,int[][] dungeons){
+    public static void dfs(int k, int[][] dungeons, int depth,boolean[] isVisited) {
         
         max=Math.max(max,depth);
         
         if(depth==dungeons.length){
             return;
         }
-        
-        for(int i=0;i<dungeons.length;i++){
-            if(!isVisited[i]){
-                if(cur>=dungeons[i][0]){
+            
+            for(int i=0;i<dungeons.length;i++) {
+                if(!isVisited[i]&&dungeons[i][0]<=k){
                     isVisited[i]=true;
-                    dfs(cur-dungeons[i][1],depth+1,dungeons);
+                    dfs(k-dungeons[i][1],dungeons,depth+1,isVisited);
                     isVisited[i]=false;
                 }
+                
+                
             }
             
-        }
         
     }
     
