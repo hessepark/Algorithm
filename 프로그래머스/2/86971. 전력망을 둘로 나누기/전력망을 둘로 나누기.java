@@ -3,63 +3,46 @@ import java.io.*;
 
 class Solution {
     
-    public static ArrayList<Integer> list[];
-    public static boolean[] isVisited;
+    public static int minDiff;
     
     public int solution(int n, int[][] wires) {
-        int min = Integer.MAX_VALUE;
+        minDiff=Integer.MAX_VALUE;
         
-        list = new ArrayList[n+1];
+        ArrayList<Integer>list[] = new ArrayList[n+1];
         
-        
-        for(int i=1;i<=n;i++){
+        for(int i=1;i<=n;i++) {
             list[i] = new ArrayList<>();
         }
         
-        for(int i=0;i<wires.length;i++){
-            int a= wires[i][0];
-            int b= wires[i][1];
+        for(int[] wire:wires) {
+            int a = wire[0];
+            int b = wire[1];
             
             list[a].add(b);
             list[b].add(a);
         }
         
-        for(int i=0;i<wires.length;i++){
-            
-            isVisited = new boolean[n+1];
-            
-            int a= wires[i][0];
-            int b= wires[i][1];
-            
-            list[a].remove(Integer.valueOf(b));
-            list[b].remove(Integer.valueOf(a));
-            
-            int cnt = dfs(1);
-            //System.out.println(cnt);
-            
-            min=Math.min(min,Math.abs(n-cnt-cnt));
-            
-            list[a].add(b);
-            list[b].add(a);
-            
-        }
+        boolean isVisited[]=new boolean[n+1];
         
-        return min;
+        dfs(isVisited,list,n,1);
+        
+        return minDiff;
     }
     
-    public static int dfs(int num){
+    public static int dfs(boolean[] isVisited, ArrayList<Integer>list[], int n,int num) {
         
-        isVisited[num] = true;
+        int cnt=1;
+        isVisited[num]=true;
         
-        int cnt=0;
-        
-        for(int child:list[num]){
-            if(!isVisited[child]){
-                cnt+=dfs(child);
+        for(int node:list[num]) {
+            if(!isVisited[node]){
+                cnt+=dfs(isVisited,list,n,node);
             }
         }
         
-        return cnt+1;
+        minDiff=Math.min(minDiff, Math.abs(cnt-(n-cnt)));
+        
+        return cnt;
         
     }
 }
