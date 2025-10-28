@@ -1,47 +1,65 @@
 import java.util.*;
 import java.io.*;
+
 class Solution {
     public int solution(String s) {
-        int min=s.length();
+        int answer = Integer.MAX_VALUE;
         
-        for(int l=1;l<=s.length()/2;l++){
-            min=Math.min(min,compress(s,l));
+        for(int i=1;i<=s.length()/2;i++){
+            answer=Math.min(answer,zip(s,i));
         }
         
-        return min;
+        if(s.length()==1){
+            return 1;
+        }
+        
+        return answer;
     }
     
-    
-    public static int compress(String s, int length) {
-    
-        int count=1;
-        String prev="";
-        StringBuilder sb = new StringBuilder();
+    public static int zip(String s, int l) {
         
-        for(int i=0;i<s.length();i+=length){
-            String str =s.substring(i,Math.min(s.length(),i+length));
-            if(str.equals(prev)){
-                count++;
+        ArrayDeque<Word>q = new ArrayDeque<>();
+        
+        for(int i=0;i<s.length();i+=l) {
+            String alpha=s.substring(i,Math.min(i+l,s.length()));
+            
+            if(q.isEmpty()){
+                q.addLast(new Word(alpha,1));
             }
             else{
-                if(count>1){
-                    sb.append(count);
+                if(q.peekLast().word.equals(alpha)){
+                    Word now=q.pollLast();
+                    q.addLast(new Word(now.word, now.cnt+1)); //alpha해도 됨
                 }
-                sb.append(prev);
-                prev=str;
-                count=1;
+                else{
+                    q.addLast(new Word(alpha,1));
+                }
             }
+            
         }
         
-        if(count>1){
-            sb.append(count);
-        }
-        sb.append(prev);
+        StringBuilder sb = new StringBuilder();
         
-        //System.out.println(length+"결과: "+sb.toString());
+        while(!q.isEmpty()){
+            Word now = q.pollLast();
+            if(now.cnt>=2){
+                sb.append(now.cnt);
+            }
+            sb.append(now.word);
+        }
         
         return sb.toString().length();
         
     }
     
+}
+
+class Word {
+    String word;
+    int cnt;
+    
+    public Word(String word, int cnt) {
+        this.word=word;
+        this.cnt=cnt;
+    }
 }
