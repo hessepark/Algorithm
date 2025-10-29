@@ -3,52 +3,50 @@ import java.io.*;
 
 class Solution {
     public int[] solution(String[] genres, int[] plays) {
-        int[] answer = {};
+        ArrayList<Integer> answer = new ArrayList<>();
         
-        HashMap<String,Integer>totals =new HashMap<>();
-        HashMap<String, HashMap<Integer,Integer>> map = new HashMap<>();
+        HashMap<String,Integer>countSum=new HashMap<>();
+        HashMap<String, HashMap<Integer,Integer>>countMap = new HashMap<>();
         
-        for(int i=0;i<genres.length;i++){
-            totals.put(genres[i],totals.getOrDefault(genres[i],0)+plays[i]);
+        for(int i=0;i<plays.length;i++) {
+            countSum.put(genres[i],countSum.getOrDefault(genres[i],0)+plays[i]);
             
-            if(!map.containsKey(genres[i])){
-                HashMap<Integer,Integer>list = new HashMap<>();
-                list.put(i,plays[i]);
-                
-                map.put(genres[i],list);
+            if(!countMap.containsKey(genres[i])){
+                countMap.put(genres[i],new HashMap<Integer,Integer>());
             }
-            else{
-                map.get(genres[i]).put(i,plays[i]);
-            }
+            countMap.get(genres[i]).put(i,plays[i]);
         }
         
-        ArrayList<String> totalOrder = new ArrayList<>(totals.keySet());
+        ArrayList<String>list = new ArrayList<>(countSum.keySet());
         
-        Collections.sort(totalOrder,(o1,o2)->Integer.compare(totals.get(o2),totals.get(o1))); //내림차순
+        Collections.sort(list,(o1,o2)->Integer.compare(countSum.get(o2),countSum.get(o1)));
         
-        ArrayList<Integer>ans = new ArrayList<>();
+        //System.out.println(list);
         
-        for(int i=0;i<totalOrder.size();i++){
-            String genre= totalOrder.get(i);
+        for(int i=0;i<list.size();i++) {   
+            HashMap<Integer,Integer>idxMap = new HashMap<>(countMap.get(list.get(i)));
             
-            ArrayList<Integer>idx = new ArrayList<>(map.get(genre).keySet());
+            ArrayList<Integer>idxList = new ArrayList<>(countMap.get(list.get(i)).keySet());
+            Collections.sort(idxList, (o1,o2)->Integer.compare(idxMap.get(o2),idxMap.get(o1)));
+            //System.out.println(idxList);
             
-            Collections.sort(idx,(o1,o2)->Integer.compare(map.get(genre).get(o2),map.get(genre).get(o1)));
+            int idx=0;
             
-            int cnt=0;
-            
-            while(cnt<2&&idx.size()>cnt){
-                ans.add(idx.get(cnt++));
+            while(idx<2&&idxList.size()>idx) {
+                answer.add(idxList.get(idx++));
             }
         }
         
-        answer=new int[ans.size()];
+        int ans[]=new int[answer.size()];
         
-        for(int i=0;i<answer.length;i++){
-            answer[i]=ans.get(i);
+        for(int i=0;i<answer.size();i++) {
+            ans[i]=answer.get(i);
         }
         
-        return answer;
-       
+
+        //System.out.println(countSum);
+        //System.out.println(countMap);
+        
+        return ans;
     }
 }
