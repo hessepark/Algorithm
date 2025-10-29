@@ -10,14 +10,11 @@ class Solution {
         //신고 몇번 당함
         HashMap<String, Integer> countMap = new HashMap<>();
         //동일 신고 1회 처리 set
-        HashSet<String> set = new HashSet<>();
+        HashSet<String> set = new HashSet<>(Arrays.asList(report));
         
-        for(int i=0;i<report.length;i++) {
-            if(set.contains(report[i])) continue;
+        for(String report1: set) {
             
-            set.add(report[i]);
-            
-            String [] people = report[i].split(" ");
+            String [] people = report1.split(" ");
             String a=people[0];
             String b=people[1];
             
