@@ -1,83 +1,52 @@
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.util.Arrays;
-import java.util.PriorityQueue;
 import java.util.Scanner;
 
 public class Main {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
 
         int n = sc.nextInt();
 
-        for(int i=0;i<n;i++) {
 
-            String word = sc.next();
+        for (int i = 0; i < n; i++) {
+            char str[] = sc.next().toCharArray();
 
             int l = 0;
-            int r = word.length()-1;
-            int cnt=0;
+            int r = str.length - 1;
+            int ans = 0;
 
-            while(l<r) {
-                if(word.charAt(l)==word.charAt(r)){
-                    l++;
-                    r--;
-                }
-                else{
-                    if(word.charAt(l+1)==word.charAt(r)){
-                        l++;
+            while (l <= r) { //l<r해도 될듯
+                if (str[l] != str[r]) {
+                    if (isPalindrome(str, l + 1, r) || isPalindrome(str, l, r - 1)) {
+                        ans = 1;
+                    } else {
+                        ans = 2;
                     }
-                    else{
-                        r--;
-                    }
-                    cnt++;
+                    break; //break없어도 될듯
                 }
+                l++;
+                r--;
             }
 
-            l = 0;
-            r = word.length()-1;
-            int cnt1=0;
-
-            while(l<r) {
-                if(word.charAt(l)==word.charAt(r)){
-                    l++;
-                    r--;
-                }
-                else{
-                    if(word.charAt(r-1)==word.charAt(l)){
-                        r--;
-                    }
-                    else{
-                        l++;
-                    }
-                    cnt1++;
-                }
-            }
-
-            if(cnt==0) {
-                System.out.println(0);
-            }
-            else if (cnt==1||cnt1==1) {
-                System.out.println(1);
-            }
-            else {
-                System.out.println(2);
-            }
+            System.out.println(ans);
 
         }
 
+    }
 
+    private static boolean isPalindrome(char[] str, int l, int r) {
 
+        while (l <= r) {
+            if (str[l] != str[r]) {
+                return false;
+            }
+            l++;
+            r--;
+        }
 
+        return true;
 
     }
 
 }
-
-
-
-
-
