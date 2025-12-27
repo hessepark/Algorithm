@@ -7,15 +7,17 @@ class Solution {
 
         ArrayDeque<Character>q = new ArrayDeque<>();
         
-        for(int i=0;i<s.length();i++){
-            if(s.charAt(i)=='('){
-                q.add('(');
+        for(int i=0;i<s.length();i++) {
+            if(s.charAt(i)=='(') {
+                q.addLast('(');
             }
             else {
                 if(q.isEmpty()){
                     return false;
                 }
-                q.pollLast();
+                else{
+                    q.pollLast();
+                }
             }
         }
 
