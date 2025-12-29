@@ -5,22 +5,19 @@ class Solution {
     public String solution(String[] participant, String[] completion) {
         String answer = "";
         
-        Arrays.sort(participant);
-        Arrays.sort(completion);
-        
-        //System.out.println(Arrays.toString(participant));
-        //System.out.println(Arrays.toString(completion));
+        HashMap<String,Integer>map = new HashMap<>();
         
         for(int i=0;i<participant.length;i++){
-            
-            if(i>completion.length-1){
-                answer=participant[i];
-                break;
-            }
-            
-            if(!participant[i].equals(completion[i])){
-                answer=participant[i];
-                break;
+            map.put(participant[i],map.getOrDefault(participant[i],0)+1);
+        }
+        
+        for(int i=0;i<completion.length;i++){
+            map.put(completion[i],map.getOrDefault(completion[i],0)+1);
+        }
+        
+        for(int i=0;i<participant.length;i++){
+            if(map.get(participant[i])%2!=0){
+                return participant[i];
             }
         }
         
