@@ -4,24 +4,26 @@ import java.io.*;
 class Solution {
     public int[] solution(int[] prices) {
         int[] answer = {};
+        answer = new int[prices.length];
         
-        ArrayDeque<Integer>q = new ArrayDeque<>();
-        
-        answer=new int[prices.length];
+        ArrayDeque<Integer> q = new ArrayDeque<>();
         
         for(int i=0;i<prices.length;i++) {
-            while(!q.isEmpty()&&prices[i]<prices[q.peekLast()]){
-                int idx = q.pollLast();
-                answer[idx]=i-idx;
+            while(!q.isEmpty()) {
+                if(prices[i]<prices[q.peekLast()]){
+                    answer[q.peekLast()]=i-q.pollLast();       
+                }
+                else{
+                    break;
+                }
             }
             q.addLast(i);
         }
         
-        while(!q.isEmpty()){
-            int idx=q.pollLast();
-            answer[idx]=prices.length-idx-1;
+        while(!q.isEmpty()) {
+            answer[q.peekLast()]= prices.length-q.pollLast()-1;
         }
-            
-        return answer;
-    }
+        
+    return answer;
+} 
 }
