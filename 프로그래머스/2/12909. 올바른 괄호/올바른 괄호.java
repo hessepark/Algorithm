@@ -8,16 +8,14 @@ class Solution {
         ArrayDeque<Character>q = new ArrayDeque<>();
         
         for(int i=0;i<s.length();i++) {
-            if(s.charAt(i)=='(') {
-                q.addLast('(');
+            if(s.charAt(i)=='('){
+                q.addLast(')');
             }
-            else {
+            else{
                 if(q.isEmpty()){
                     return false;
                 }
-                else{
-                    q.pollLast();
-                }
+                else q.pollLast();
             }
         }
 
