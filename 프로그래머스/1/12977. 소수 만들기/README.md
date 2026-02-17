@@ -1,10 +1,10 @@
 # [level 1] 소수 만들기 - 12977 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/12977?gad_source=1&gad_campaignid=22366107751&gbraid=0AAAAAC_c4nDt1d3CYIAtHIRMCzP-Xs45o&gclid=Cj0KCQiAx8PKBhD1ARIsAKsmGbephX4ubvVl-09dbTyBxXmXushYZ7bNqE0IInj2q9CbGWB37iBg32kaAsRnEALw_wcB) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/12977?gad_source=1&gad_campaignid=22499034228&gbraid=0AAAAAC_c4nC099rbu6qmT6hfQxR-tRkn_&gclid=CjwKCAiAwNDMBhBfEiwAd7ti1EY2x0jMeoCxQtNy0fa26XynGE2pE8JENncVeIVHERb0-Q2LpXN1GBoCjKIQAvD_BwE#) 
 
 ### 성능 요약
 
-메모리: 81.1 MB, 시간: 14.45 ms
+메모리: 87.4 MB, 시간: 11.59 ms
 
 ### 구분
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2025년 12월 28일 23:25:44
+2026년 02월 17일 20:21:25
 
 ### 문제 설명
 
