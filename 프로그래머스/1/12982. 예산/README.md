@@ -1,10 +1,10 @@
 # [level 1] 예산 - 12982 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/12982?language=java&gad_source=1&gad_campaignid=22366107751&gbraid=0AAAAAC_c4nDt1d3CYIAtHIRMCzP-Xs45o&gclid=Cj0KCQiAx8PKBhD1ARIsAKsmGbdnf03gZG1W1OJ6ALSQu9UITktlPWNnuZacXDdrjCUIgwYS0zSQRfMaAoiUEALw_wcB) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/12982?language=java&gad_source=1&gad_campaignid=22499034228&gbraid=0AAAAAC_c4nC099rbu6qmT6hfQxR-tRkn_&gclid=CjwKCAiAwNDMBhBfEiwAd7ti1OjR3z_0T35USDAvELW4hLP2L5eO31iRK5hxJqZ1KNi3aOTdwUc0PxoCHYEQAvD_BwE) 
 
 ### 성능 요약
 
-메모리: 75.2 MB, 시간: 2.34 ms
+메모리: 74.8 MB, 시간: 0.47 ms
 
 ### 구분
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2025년 12월 28일 23:06:40
+2026년 02월 17일 20:16:28
 
 ### 문제 설명
 
