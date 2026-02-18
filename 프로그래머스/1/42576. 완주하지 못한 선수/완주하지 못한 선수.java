@@ -7,16 +7,16 @@ class Solution {
         
         HashMap<String,Integer>map = new HashMap<>();
         
-        for(int i=0;i<participant.length;i++){
+        for(int i=0;i<participant.length;i++) {
             map.put(participant[i],map.getOrDefault(participant[i],0)+1);
         }
         
-        for(int i=0;i<completion.length;i++){
+        for(int i=0;i<completion.length;i++) {
             map.put(completion[i],map.getOrDefault(completion[i],0)+1);
         }
         
         for(int i=0;i<participant.length;i++){
-            if(map.get(participant[i])%2!=0){
+            if(map.get(participant[i])%2==1){
                 return participant[i];
             }
         }
