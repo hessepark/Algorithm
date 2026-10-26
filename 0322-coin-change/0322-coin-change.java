@@ -18,11 +18,11 @@ class Solution {
             for(int i=0;i<coins.length;i++){
                 if(n-coins[i]>=0&&isVisited[n-coins[i]]==0){
                     isVisited[n-coins[i]]=isVisited[n]+1;
-                    
+                     q.add(n-coins[i]);
                     if(n-coins[i]==0){
                         return isVisited[n-coins[i]];
                     }
-                    q.add(n-coins[i]);
+                   
                 }
             }
         }
