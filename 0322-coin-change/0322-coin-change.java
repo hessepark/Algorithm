@@ -6,7 +6,7 @@ class Solution {
 
         if(amount==0) return 0;
 
-        int isVisited[]=new int[amount+1];
+        int[] isVisited=new int[amount+1];
 
         ArrayDeque<Integer>q=new ArrayDeque<>();
         q.add(amount);
