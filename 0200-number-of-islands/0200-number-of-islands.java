@@ -14,7 +14,7 @@ class Solution {
         for(int i=0;i<grid.length;i++) {
             for(int j=0;j<grid[0].length;j++){
                 if(!isVisited[i][j]&&grid[i][j]=='1'){
-                    bfs(isVisited,grid,i,j);
+                    dfs(isVisited,grid,i,j);
                     cnt++;
                 }
             }
@@ -23,28 +23,20 @@ class Solution {
         return cnt;
     }
 
-    public static void bfs(boolean[][] isVisited,char[][] grid,int r, int c){
+    public static void dfs(boolean[][] isVisited,char[][] grid,int r, int c){
 
-        ArrayDeque<Pos>q=new ArrayDeque<>();
-        q.add(new Pos(r,c));
         isVisited[r][c]=true;
 
-        while(!q.isEmpty()){
-
-            Pos pos=q.poll();
-
             for(int k=0;k<4;k++) {
-                int nr=pos.r+dr[k];
-                int nc=pos.c+dc[k];
+                int nr=r+dr[k];
+                int nc=c+dc[k];
                 if(nr<0||nc<0||nr>=grid.length||nc>=grid[0].length) continue;
 
                 if(grid[nr][nc]=='1'&&!isVisited[nr][nc]){
-                    isVisited[nr][nc]=true;
-                    q.add(new Pos(nr,nc));
+                    dfs(isVisited,grid,nr,nc);
                 }
             }
 
-        }
 
 
     }
