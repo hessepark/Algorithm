@@ -8,6 +8,7 @@ This is an auto push repository for Baekjoon Online Judge created with [Baekjoon
 | ------- |
 | [0200-number-of-islands](https://github.com/hessepark/Algorithm/tree/main/0200-number-of-islands/) | Medium |
 | [0322-coin-change](https://github.com/hessepark/Algorithm/tree/master/0322-coin-change) |
+| [1091-shortest-path-in-binary-matrix](https://github.com/hessepark/Algorithm/tree/master/1091-shortest-path-in-binary-matrix) |
 ## Dynamic Programming
 |  |
 | ------- |
@@ -18,6 +19,7 @@ This is an auto push repository for Baekjoon Online Judge created with [Baekjoon
 | [0200-number-of-islands](https://github.com/hessepark/Algorithm/tree/main/0200-number-of-islands/) | Medium |
 | [0322-coin-change](https://github.com/hessepark/Algorithm/tree/master/0322-coin-change) |
 | [0785-is-graph-bipartite](https://github.com/hessepark/Algorithm/tree/master/0785-is-graph-bipartite) |
+| [1091-shortest-path-in-binary-matrix](https://github.com/hessepark/Algorithm/tree/master/1091-shortest-path-in-binary-matrix) |
 ## Knapsack Problem
 |  |
 | ------- |
@@ -52,4 +54,5 @@ This is an auto push repository for Baekjoon Online Judge created with [Baekjoon
 |  |
 | ------- |
 | [0200-number-of-islands](https://github.com/hessepark/Algorithm/tree/main/0200-number-of-islands/) | Medium |
+| [1091-shortest-path-in-binary-matrix](https://github.com/hessepark/Algorithm/tree/master/1091-shortest-path-in-binary-matrix) |
 <!---LeetCode Topics End-->
